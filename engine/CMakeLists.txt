@@ -19,7 +19,7 @@ target_include_directories(${PROJECT_NAME}
 	PUBLIC 
 		src
 		"third_party/sdl3/include"
-#		"third_party/sdl3_image/include"
+		"third_party/sdl3_image/include"
 #		"${CMAKE_SOURCE_DIR}/third_party/glm"
 #       "${CMAKE_SOURCE_DIR}/third_party/json/single_include"
 )
@@ -27,6 +27,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} 
 	PUBLIC 
 		SDL3::SDL3-shared
+		SDL3_image::SDL3_image-shared
 )
 
 add_dependencies(${PROJECT_NAME} CopyResources)

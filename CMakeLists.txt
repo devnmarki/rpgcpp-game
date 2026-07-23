@@ -18,7 +18,15 @@ endif()
 
 project (rpg_game)
 
+set(SDLIMAGE_AVIF OFF CACHE BOOL "" FORCE)
+set(SDLIMAGE_JXL OFF CACHE BOOL "" FORCE)
+set(SDLIMAGE_TIF OFF CACHE BOOL "" FORCE)
+set(SDLIMAGE_WEBP OFF CACHE BOOL "" FORCE)
+set(SDLIMAGE_VULKAN OFF CACHE BOOL "" FORCE)
+set(SDL_IMAGE_AVIF OFF CACHE BOOL "" FORCE)
+
 add_subdirectory(third_party/sdl3)
+add_subdirectory(third_party/sdl3_image)
 
 add_subdirectory (rpg_game)
 add_subdirectory (engine)
