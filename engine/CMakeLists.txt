@@ -4,13 +4,16 @@ set(SRC_FILES
 	"src/core/engine.cpp" 
 	"src/core/app.cpp"
 	"src/core/window.cpp"
- "src/utils/time.cpp")
+	"src/utils/time.cpp" 
+	"src/graphics/texture.cpp"
+)
 
 set(INCLUDE_FILES 
 	"src/core/engine.hpp" 
 	"src/core/app.hpp"
 	"src/core/window.hpp"
 	"src/utils/utils.hpp"
+	"src/graphics/texture.hpp"
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES} ${INCLUDE_FILES})
