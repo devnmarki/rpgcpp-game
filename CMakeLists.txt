@@ -27,6 +27,7 @@ set(SDL_IMAGE_AVIF OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(third_party/sdl3)
 add_subdirectory(third_party/sdl3_image)
+add_subdirectory(third_party/spdlog)
 
 add_subdirectory (rpg_game)
 add_subdirectory (engine)

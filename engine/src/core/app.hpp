@@ -7,6 +7,7 @@
 
 #include "window.hpp"
 #include "utils/time.hpp"
+#include "graphics/renderer.hpp"
 
 struct AppSpecs {
 	std::string name;
@@ -23,6 +24,7 @@ public:
 	static App& getInstance();
 
 	Window& getWindow() const { return *m_pWindow; }
+	Renderer& getRenderer() { return *m_pRenderer; }
 
 protected:
 	virtual void onLoad() {}
@@ -32,7 +34,9 @@ protected:
 private:
 	AppSpecs m_specs;
 
+	bool m_running;
+
 	std::unique_ptr<Window> m_pWindow;
 	std::unique_ptr<Time> m_pTime;
-	bool m_running;
+	std::unique_ptr<Renderer> m_pRenderer;
 };

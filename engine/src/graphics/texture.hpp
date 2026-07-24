@@ -4,6 +4,7 @@
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
+#include <spdlog/spdlog.h>
 
 class Texture {
 public:
@@ -12,7 +13,7 @@ public:
 
 	int getWidth() const { return m_width; }
 	int getHeight() const { return m_height; }
-	SDL_Texture* getHandle() { return m_pHandle; }
+	SDL_Texture* getHandle() const { return m_pHandle; }
 
 private:
 	float m_width = 0.0f;

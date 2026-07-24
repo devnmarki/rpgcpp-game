@@ -17,6 +17,8 @@ App::App(const AppSpecs& specs)
 	m_pWindow = std::make_unique<Window>(m_specs.windowSpecs);
 	m_pWindow->create();
 
+	m_pRenderer = std::make_unique<Renderer>();
+
 	onLoad();
 }
 
