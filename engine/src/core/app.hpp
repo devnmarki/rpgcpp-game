@@ -10,6 +10,7 @@
 #include "utils/time.hpp"
 #include "graphics/renderer.hpp"
 #include "loader/asset_loader.hpp"
+#include "scene_manager.hpp"
 
 struct AppSpecs {
 	std::string name;
@@ -28,6 +29,7 @@ public:
 	Window& getWindow() const { return *m_pWindow; }
 	Renderer& getRenderer() { return *m_pRenderer; }
 	AssetLoader& getAssetLoader() { return *m_pAssetLoader; }
+	SceneManager& getSceneManager() { return *m_pSceneManager; }
 
 protected:
 	virtual void onLoad() {}
@@ -43,6 +45,7 @@ private:
 	std::unique_ptr<Time> m_pTime;
 	std::unique_ptr<Renderer> m_pRenderer;
 	std::unique_ptr<AssetLoader> m_pAssetLoader;
+	std::unique_ptr<SceneManager> m_pSceneManager;
 };
 
 #endif

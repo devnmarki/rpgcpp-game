@@ -3,6 +3,9 @@
 
 #include <string>
 #include <unordered_map>
+#include <fstream>
+
+#include <nlohmann/json.hpp>
 
 #include "graphics/texture.hpp"
 
@@ -10,7 +13,8 @@ class AssetLoader {
 public:
 	AssetLoader() = default;
 
-	void loadTexture(const std::string& id, const std::string& path);
+	bool loadTexture(const std::string& id, const std::string& path);
+	void loadTextureGroup(const std::string& filename);
 
 	Texture* getTexture(const std::string& id) const;
 

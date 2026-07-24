@@ -4,6 +4,7 @@ set(SRC_FILES
 	"src/core/engine.cpp" 
 	"src/core/app.cpp"
 	"src/core/window.cpp"
+	"src/core/scene_manager.cpp"
 	"src/utils/time.cpp" 
 	"src/graphics/texture.cpp"
 	"src/graphics/renderer.cpp"
@@ -14,6 +15,8 @@ set(INCLUDE_FILES
 	"src/core/engine.hpp" 
 	"src/core/app.hpp"
 	"src/core/window.hpp"
+	"src/core/scene.hpp"
+	"src/core/scene_manager.hpp"
 	"src/utils/utils.hpp"
 	"src/graphics/texture.hpp"
 	"src/graphics/renderer.hpp"
@@ -29,7 +32,7 @@ target_include_directories(${PROJECT_NAME}
 		"third_party/sdl3_image/include"
 		"third_party/spdlog/include"
 		"${CMAKE_SOURCE_DIR}/third_party/glm"
-#       "${CMAKE_SOURCE_DIR}/third_party/json/single_include"
+        "${CMAKE_SOURCE_DIR}/third_party/json/single_include"
 )
 
 target_link_libraries(${PROJECT_NAME} 

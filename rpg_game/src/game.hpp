@@ -3,6 +3,8 @@
 
 #include "core/engine.hpp"
 
+#include "scenes/scenes.hpp"
+
 class Game : public App {
 public:
 	Game();
