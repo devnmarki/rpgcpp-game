@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WINDOW_HPP
+#define WINDOW_HPP
 
 #include <iostream>
 #include <SDL3/SDL.h>
@@ -31,3 +32,5 @@ private:
 	SDL_Window* m_pHandle;
 	SDL_Renderer* m_pRenderer;
 };
+
+#endif

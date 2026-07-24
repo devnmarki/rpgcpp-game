@@ -7,6 +7,7 @@ set(SRC_FILES
 	"src/utils/time.cpp" 
 	"src/graphics/texture.cpp"
 	"src/graphics/renderer.cpp"
+	"src/loader/asset_loader.cpp"
 )
 
 set(INCLUDE_FILES 
@@ -16,6 +17,7 @@ set(INCLUDE_FILES
 	"src/utils/utils.hpp"
 	"src/graphics/texture.hpp"
 	"src/graphics/renderer.hpp"
+	"src/loader/asset_loader.hpp"
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES} ${INCLUDE_FILES})

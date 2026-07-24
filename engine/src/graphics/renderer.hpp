@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RENDERER_HPP
+#define RENDERER_HPP
 
 #include <optional>
 
@@ -16,3 +17,5 @@ public:
 private:
 	SDL_Renderer* m_pHandle;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENGINE_HPP
+#define ENGINE_HPP
 
 #include <iostream>
 
@@ -6,3 +7,5 @@
 #include "graphics/texture.hpp"
 
 void test(const char* message);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEXTURE_HPP
+#define TEXTURE_HPP
 
 #include <iostream>
 
@@ -20,3 +21,5 @@ private:
 	float m_height = 0.0f;
 	SDL_Texture* m_pHandle;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TIME_HPP
+#define TIME_HPP
 
 #include <string>
 
@@ -23,3 +24,5 @@ private:
 	float mFpsTimer = 0.0f;
 	int mFrameCounter = 0;
 };
+
+#endif

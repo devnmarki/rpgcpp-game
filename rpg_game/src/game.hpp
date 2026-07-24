@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_HPP
+#define GAME_HPP
 
 #include "core/engine.hpp"
 
@@ -7,7 +8,6 @@ public:
 	Game();
 
 	void onRender() override;
-
-private:
-	std::shared_ptr<Texture> m_pTexture;
 };
+
+#endif
