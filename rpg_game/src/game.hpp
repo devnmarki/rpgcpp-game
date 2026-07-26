@@ -9,6 +9,7 @@ class Game : public App {
 public:
 	Game();
 
+	void onUpdate() override;
 	void onRender() override;
 };
 

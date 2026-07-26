@@ -24,6 +24,8 @@ public:
 		spdlog::info("Successfully added scene '{}'!", id);
 	}
 
+	void switchScene(const std::string& id);
+
 private:
 	std::unordered_map<std::string, std::unique_ptr<Scene>> m_scenes = {};
 	Scene* m_pCurrentScene = nullptr;

@@ -7,6 +7,13 @@ Game::Game()
 
 	getSceneManager().addScene<DefaultScene>("default_scene");
 	getSceneManager().addScene<IslandScene>("island_scene");
+	getSceneManager().switchScene("default_scene");
+	getSceneManager().switchScene("island_scene");
+}
+
+void Game::onUpdate()
+{
+	
 }
 
 void Game::onRender()
