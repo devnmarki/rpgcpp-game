@@ -1,4 +1,5 @@
-#pragma once
+#ifndef APP_HPP
+#define APP_HPP
 
 #include <iostream>
 #include <string>
@@ -7,6 +8,10 @@
 
 #include "window.hpp"
 #include "utils/time.hpp"
+#include "graphics/renderer.hpp"
+#include "loader/asset_loader.hpp"
+#include "scene_manager.hpp"
+#include "input.hpp"
 
 struct AppSpecs {
 	std::string name;
@@ -23,6 +28,9 @@ public:
 	static App& getInstance();
 
 	Window& getWindow() const { return *m_pWindow; }
+	Renderer& getRenderer() { return *m_pRenderer; }
+	AssetLoader& getAssetLoader() { return *m_pAssetLoader; }
+	SceneManager& getSceneManager() { return *m_pSceneManager; }
 
 protected:
 	virtual void onLoad() {}
@@ -32,7 +40,13 @@ protected:
 private:
 	AppSpecs m_specs;
 
+	bool m_running;
+
 	std::unique_ptr<Window> m_pWindow;
 	std::unique_ptr<Time> m_pTime;
-	bool m_running;
+	std::unique_ptr<Renderer> m_pRenderer;
+	std::unique_ptr<AssetLoader> m_pAssetLoader;
+	std::unique_ptr<SceneManager> m_pSceneManager;
 };
+
+#endif

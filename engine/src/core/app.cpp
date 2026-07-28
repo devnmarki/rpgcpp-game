@@ -17,6 +17,10 @@ App::App(const AppSpecs& specs)
 	m_pWindow = std::make_unique<Window>(m_specs.windowSpecs);
 	m_pWindow->create();
 
+	m_pAssetLoader = std::make_unique<AssetLoader>();
+	m_pSceneManager = std::make_unique<SceneManager>();
+	m_pRenderer = std::make_unique<Renderer>();
+
 	onLoad();
 }
 
@@ -47,6 +51,8 @@ void App::run()
 				break;
 			}
 		}
+
+		Input::updateState();
 
 		onUpdate();
 		
