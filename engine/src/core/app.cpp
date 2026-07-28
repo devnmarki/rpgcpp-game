@@ -52,6 +52,8 @@ void App::run()
 			}
 		}
 
+		Input::updateState();
+
 		onUpdate();
 		
 		m_pWindow->beginFrame({ 46, 144, 220 });

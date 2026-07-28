@@ -13,7 +13,8 @@ Game::Game()
 
 void Game::onUpdate()
 {
-	
+	if (Input::isKeyPressed(Keys::Space))
+		spdlog::info("space pressed :|");
 }
 
 void Game::onRender()

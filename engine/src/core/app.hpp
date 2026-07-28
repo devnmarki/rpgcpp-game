@@ -11,6 +11,7 @@
 #include "graphics/renderer.hpp"
 #include "loader/asset_loader.hpp"
 #include "scene_manager.hpp"
+#include "input.hpp"
 
 struct AppSpecs {
 	std::string name;
