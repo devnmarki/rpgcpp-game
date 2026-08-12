@@ -10,7 +10,8 @@ set(SRC_FILES
 	"src/graphics/texture.cpp"
 	"src/graphics/renderer.cpp"
 	"src/loader/asset_loader.cpp"
- "src/core/scene.cpp")
+	"src/core/scene.cpp"
+)
 
 set(INCLUDE_FILES 
 	"src/core/engine.hpp" 
@@ -35,6 +36,7 @@ target_include_directories(${PROJECT_NAME}
 		"third_party/spdlog/include"
 		"${CMAKE_SOURCE_DIR}/third_party/glm"
         "${CMAKE_SOURCE_DIR}/third_party/json/single_include"
+        "${CMAKE_SOURCE_DIR}/third_party/entt/single_include"
 )
 
 target_link_libraries(${PROJECT_NAME} 
