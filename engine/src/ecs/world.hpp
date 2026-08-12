@@ -29,6 +29,14 @@ public:
 		return m_registry.any_of<T>(eid);
 	}
 
+	template<typename... Components, typename Func>
+	void query(Func&& func) {
+		auto view = m_registry.view<Components...>();
+		view.each([&func](auto entity, Components&... comps) {
+			func(entity, comps...);
+		});
+	}
+
 private:
 	entt::registry m_registry;
 };
