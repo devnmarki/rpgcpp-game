@@ -32,11 +32,12 @@ public:
 	}
 
 	template<typename T, typename... Args>
-	void addSystem(Args&&... args) {
-		m_systems.emplace_back(std::make_unique<T>(this, std::forward<Args>(args)...));
+	void addSystem(SystemPhase phase = SystemPhase::Update, Args&&... args) {
+		m_systems.emplace_back(std::make_unique<T>(this, phase, std::forward<Args>(args)...));
 	}
 
 	void update();
+	void render();
 
 	template<typename... Components, typename Func>
 	void query(Func&& func) {

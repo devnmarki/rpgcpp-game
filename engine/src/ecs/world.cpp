@@ -4,7 +4,18 @@
 void World::update()
 {
 	for (const auto& system : m_systems) {
-		system->tick(App::getInstance().getTime().getDeltaTime());
+		if (system->getPhase() == SystemPhase::Update) {
+			system->tick(App::getInstance().getTime().getDeltaTime());
+		}
+	}
+}
+
+void World::render()
+{
+	for (const auto& system : m_systems) {
+		if (system->getPhase() == SystemPhase::Render) {
+			system->tick(App::getInstance().getTime().getDeltaTime());
+		}
 	}
 }
 

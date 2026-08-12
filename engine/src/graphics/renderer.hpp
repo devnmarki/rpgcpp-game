@@ -8,7 +8,7 @@
 
 #include "texture.hpp"
 #include "sprite.hpp"
-#include "ecs/core_components.hpp"
+#include "ecs/components.hpp"
 
 class Renderer {
 public:

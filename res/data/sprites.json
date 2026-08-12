@@ -9,11 +9,11 @@
   },
   "sprite:character_base_left": {
     "texture_id": "texture:character_base_sheet",
-    "src": [ 0, 48, 32, 32 ]
+    "src": [ 0, 64, 32, 32 ]
   },
   "sprite:character_base_right": {
     "texture_id": "texture:character_base_sheet",
-    "src": [ 0, 48, 32, 32 ],
+    "src": [ 0, 64, 32, 32 ],
     "flip_x": true
   }
 }

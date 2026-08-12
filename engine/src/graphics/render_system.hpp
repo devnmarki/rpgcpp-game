@@ -7,7 +7,7 @@
 
 class RenderSystem : public System {
 public:
-	RenderSystem(World* world);
+	RenderSystem(World* world, SystemPhase phase);
 
 	void tick(float dt) override;
 };
