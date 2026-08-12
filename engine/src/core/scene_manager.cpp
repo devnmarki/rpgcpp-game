@@ -12,6 +12,7 @@ void SceneManager::switchScene(const std::string& id)
 	if (m_pCurrentScene != newScene) {
 		if (m_pCurrentScene) {
 			m_pCurrentScene->onExit();
+			m_pCurrentScene->resetWorld(Scene::AccessKey{});
 		}
 
 		m_pCurrentScene = newScene;

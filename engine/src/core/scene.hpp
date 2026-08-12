@@ -10,6 +10,11 @@ class App;
 class SceneManager;
 
 class Scene {
+private:
+	struct AccessKey {
+		explicit AccessKey() = default;
+	};
+
 public:
 	Scene();
 	virtual ~Scene() = default;
@@ -18,6 +23,10 @@ public:
 	virtual void onUpdate() {}
 	virtual void onRender() {}
 	virtual void onExit() {}
+
+	void resetWorld(AccessKey) {
+		m_pWorld = std::make_unique<World>();
+	}
 
 	World& getWorld() { return *m_pWorld; }
 
@@ -30,6 +39,8 @@ protected:
 
 private:
 	std::unique_ptr<World> m_pWorld;
+
+	friend class SceneManager;
 };
 
 #endif
