@@ -16,6 +16,9 @@ void SceneManager::switchScene(const std::string& id)
 		}
 
 		m_pCurrentScene = newScene;
+		
+		m_pCurrentScene->getWorld().addSystem<RenderSystem>();
+
 		m_pCurrentScene->onEnter();
 	}
 }
@@ -23,6 +26,7 @@ void SceneManager::switchScene(const std::string& id)
 void SceneManager::updateActiveScene()
 {
 	m_pCurrentScene->onUpdate();
+	m_pCurrentScene->getWorld().update();
 }
 
 void SceneManager::renderActiveScene()

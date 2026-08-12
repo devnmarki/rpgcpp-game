@@ -1,10 +1,13 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
+#include <vector>
+
 #include "window.hpp"
 #include "loader/asset_loader.hpp"
 #include "graphics/renderer.hpp"
 #include "ecs/world.hpp"
+#include "ecs/system.hpp"
 
 class App;
 class SceneManager;
@@ -24,9 +27,7 @@ public:
 	virtual void onRender() {}
 	virtual void onExit() {}
 
-	void resetWorld(AccessKey) {
-		m_pWorld = std::make_unique<World>();
-	}
+	void resetWorld(AccessKey);
 
 	World& getWorld() { return *m_pWorld; }
 

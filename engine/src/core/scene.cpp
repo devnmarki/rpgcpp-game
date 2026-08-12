@@ -6,6 +6,11 @@ Scene::Scene()
 	m_pWorld = std::make_unique<World>();
 }
 
+void Scene::resetWorld(AccessKey)
+{
+	m_pWorld = std::make_unique<World>();
+}
+
 App& Scene::getApp()
 {
 	return App::getInstance();

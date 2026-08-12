@@ -31,6 +31,7 @@ public:
 	Renderer& getRenderer() { return *m_pRenderer; }
 	AssetLoader& getAssetLoader() { return *m_pAssetLoader; }
 	SceneManager& getSceneManager() { return *m_pSceneManager; }
+	Time& getTime() { return *m_pTime; }
 
 protected:
 	virtual void onLoad() {}

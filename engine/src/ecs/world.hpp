@@ -4,6 +4,8 @@
 #include <entt/entt.hpp>
 
 #include "entity.hpp"
+#include "utils/time.hpp"
+#include "system.hpp"
 
 class World {
 public:
@@ -29,6 +31,13 @@ public:
 		return m_registry.any_of<T>(eid);
 	}
 
+	template<typename T, typename... Args>
+	void addSystem(Args&&... args) {
+		m_systems.emplace_back(std::make_unique<T>(this, std::forward<Args>(args)...));
+	}
+
+	void update();
+
 	template<typename... Components, typename Func>
 	void query(Func&& func) {
 		auto view = m_registry.view<Components...>();
@@ -37,8 +46,14 @@ public:
 		});
 	}
 
+	void clearEntities();
+
+	std::vector<std::unique_ptr<System>>& getSystems() { return m_systems; }
+
 private:
 	entt::registry m_registry;
+
+	std::vector<std::unique_ptr<System>> m_systems;
 };
 
 #endif
