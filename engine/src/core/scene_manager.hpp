@@ -8,6 +8,7 @@
 #include <spdlog/spdlog.h>
 
 #include "scene.hpp"
+#include "graphics/render_system.hpp"
 
 class SceneManager {
 public:
@@ -16,6 +17,9 @@ public:
 	template<typename T>
 	void addScene(const std::string& id) {
 		std::unique_ptr<T> scene = std::make_unique<T>();
+
+		//scene->getWorld().addSystem<RenderSystem>();
+
 		auto [it, success] = m_scenes.insert({ id, std::move(scene) });
 		if (!success) {
 			spdlog::error("Failed to add scene '{}'!", id);
@@ -25,6 +29,9 @@ public:
 	}
 
 	void switchScene(const std::string& id);
+
+	void updateActiveScene();
+	void renderActiveScene();
 
 private:
 	std::unordered_map<std::string, std::unique_ptr<Scene>> m_scenes = {};

@@ -1,4 +1,4 @@
 {
-  "character_base_sheet": "res/textures/entities/character_base_sheet.png",
-  "cool_character": "res/textures/cool_character.png"
+  "texture:character_base_sheet": "res/textures/entities/character_base_sheet.png",
+  "texture:cool_character": "res/textures/cool_character.png"
 }

@@ -55,9 +55,11 @@ void App::run()
 		Input::updateState();
 
 		onUpdate();
+		m_pSceneManager->updateActiveScene();
 		
 		m_pWindow->beginFrame({ 46, 144, 220 });
 		onRender();
+		m_pSceneManager->renderActiveScene();
 		m_pWindow->endFrame();
 
 		m_pTime->updateFps();

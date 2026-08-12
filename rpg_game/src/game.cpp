@@ -3,24 +3,23 @@
 Game::Game()
 	: App{ AppSpecs{ "RPG Game | v0.0.1", WindowSpecs{ "", 1280, 720} } }
 {
-	getAssetLoader().loadTextureGroup("res/data/textures.json");
+	getAssetLoader().loadGroup<Texture>("res/data/textures.json");
+	getAssetLoader().loadGroup<Sprite>("res/data/sprites.json");
 
 	getSceneManager().addScene<DefaultScene>("default_scene");
 	getSceneManager().addScene<IslandScene>("island_scene");
 	getSceneManager().switchScene("default_scene");
-	getSceneManager().switchScene("island_scene");
 }
 
 void Game::onUpdate()
 {
-	if (Input::isKeyPressed(Keys::Space))
-		spdlog::info("space pressed :|");
+	if (Input::isKeyPressed(Keys::Q))
+		getSceneManager().switchScene("default_scene");
+	else if (Input::isKeyPressed(Keys::E))
+		getSceneManager().switchScene("island_scene");
 }
 
 void Game::onRender()
 {
-	SDL_FRect src = { 0, 0, 32, 32 };
-	static float x = 100.0f;
-	x += 1.0f;
-	getRenderer().drawTexture(getAssetLoader().getTexture("character_base_sheet"), { x, 100 }, &src, { 4, 4 });
+	
 }

@@ -12,17 +12,19 @@ public:
 	void updateDeltaTime();
 	void updateFps();
 
-private:
-	uint64_t mTargetFps;
-	uint64_t mNsPerSecond;
-	uint64_t mTargetNsPerSecond;
-	
-	uint64_t mLastTime;
-	float mDeltaTime = 0.0f;
-	uint64_t mFrameStartNs = 0;
+	float getDeltaTime() { return m_deltaTime; }
 
-	float mFpsTimer = 0.0f;
-	int mFrameCounter = 0;
+private:
+	uint64_t m_targetFps;
+	uint64_t m_nsPerSecond;
+	uint64_t m_targetNsPerSecond;
+	
+	uint64_t m_lastTime;
+	float m_deltaTime = 0.0f;
+	uint64_t m_frameStartNs = 0;
+
+	float m_fpsTimer = 0.0f;
+	int m_frameCounter = 0;
 };
 
 #endif
