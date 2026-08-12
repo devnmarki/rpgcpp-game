@@ -27,7 +27,7 @@ void Renderer::drawSprite(const Sprite* sprite, const glm::vec2& pos, const glm:
 	if (!sprite)
 		return;
 
-	Texture* spriteTexture = App::getInstance().getAssetLoader().getTexture(sprite->textureId);
+	Texture* spriteTexture = App::getInstance().getAssetLoader().get<Texture>(sprite->textureId);
 	if (!spriteTexture)
 		return;	
 

@@ -10,7 +10,7 @@ set(SRC_FILES
 	"src/graphics/texture.cpp"
 	"src/graphics/renderer.cpp"
 	"src/graphics/render_system.cpp"
-	"src/loader/asset_loader.cpp"
+	
 	"src/core/scene.cpp"
 	"src/ecs/system.cpp" 
 	"src/ecs/world.cpp"

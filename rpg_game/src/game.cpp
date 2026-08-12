@@ -3,7 +3,8 @@
 Game::Game()
 	: App{ AppSpecs{ "RPG Game | v0.0.1", WindowSpecs{ "", 1280, 720} } }
 {
-	getAssetLoader().loadTextureGroup("res/data/textures.json");
+	getAssetLoader().loadGroup<Texture>("res/data/textures.json");
+	getAssetLoader().loadGroup<Sprite>("res/data/sprites.json");
 
 	getSceneManager().addScene<DefaultScene>("default_scene");
 	getSceneManager().addScene<IslandScene>("island_scene");

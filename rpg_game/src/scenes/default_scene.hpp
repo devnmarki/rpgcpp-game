@@ -9,9 +9,6 @@ public:
 
 	void onEnter() override;
 	void onRender() override;
-
-private:
-	std::shared_ptr<Sprite> m_pSprite;
 };
 
 #endif
