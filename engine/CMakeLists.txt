@@ -12,7 +12,9 @@ set(SRC_FILES
 	"src/graphics/render_system.cpp"
 	"src/loader/asset_loader.cpp"
 	"src/core/scene.cpp"
- "src/ecs/system.cpp" "src/ecs/world.cpp")
+	"src/ecs/system.cpp" 
+	"src/ecs/world.cpp"
+)
 
 set(INCLUDE_FILES 
 	"src/core/engine.hpp" 
@@ -25,6 +27,7 @@ set(INCLUDE_FILES
 	"src/graphics/texture.hpp"
 	"src/graphics/renderer.hpp"
 	"src/graphics/render_system.hpp"
+	"src/graphics/sprite.hpp"
 	"src/loader/asset_loader.hpp"
 	"src/ecs/world.hpp"
 	"src/ecs/entity.hpp"

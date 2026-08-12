@@ -4,19 +4,19 @@ void DefaultScene::onEnter()
 {
 	spdlog::info("Default Scene started!");
 
+	m_pSprite = std::make_shared<Sprite>(Sprite{ .textureId = "character_base_sheet" });
+
 	Entity entity = getWorld().createEntity();
 	auto& t = entity.addComponent<TransformComponent>();
-	t.position = glm::vec2(100.0f, 200.0f);
-
-	getWorld().query<TransformComponent>([](entt::entity eid, TransformComponent& t) {
-		spdlog::info("X: {}, Y: {}", t.position.x, t.position.y);
-	});
+	t.position = glm::vec2(100.0f, 350.0f);
+	t.scale = glm::vec2(4.0f, 4.0f);
 }
 
 void DefaultScene::onRender()
 {
-	SDL_FRect src = { 0, 0, 32, 32 };
-	static float x = 100.0f;
-	x += 1.0f;
-	getRenderer().drawTexture(getAssetLoader().getTexture("character_base_sheet"), { x, 100 }, &src, { 4, 4 });
+	getWorld().query<TransformComponent>([&](entt::entity eid, TransformComponent& t) {
+		t.rotation += 1.0f;
+		t.position.x += 1.0f;
+		getRenderer().drawSprite(m_pSprite.get(), t);
+	});
 }
