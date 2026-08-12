@@ -3,6 +3,12 @@
 void DefaultScene::onEnter()
 {
 	spdlog::info("Default Scene started!");
+
+	Entity entity = getWorld().createEntity();
+	auto& t = entity.addComponent<Transform>();
+	t.position = glm::vec2(100.0f, 200.0f);
+
+	spdlog::info("X: {}, Y: {}", entity.getComponent<Transform>().position.x, entity.getComponent<Transform>().position.y);
 }
 
 void DefaultScene::onRender()

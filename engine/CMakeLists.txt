@@ -24,6 +24,9 @@ set(INCLUDE_FILES
 	"src/graphics/texture.hpp"
 	"src/graphics/renderer.hpp"
 	"src/loader/asset_loader.hpp"
+	"src/ecs/world.hpp"
+	"src/ecs/entity.hpp"
+	"src/ecs/core_components.hpp"
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES} ${INCLUDE_FILES})

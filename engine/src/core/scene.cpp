@@ -1,6 +1,11 @@
 #include "scene.hpp"
 #include "app.hpp"
 
+Scene::Scene()
+{
+	m_pWorld = std::make_unique<World>();
+}
+
 App& Scene::getApp()
 {
 	return App::getInstance();
