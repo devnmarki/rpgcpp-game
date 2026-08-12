@@ -10,7 +10,7 @@ set(SRC_FILES
 	"src/graphics/texture.cpp"
 	"src/graphics/renderer.cpp"
 	"src/loader/asset_loader.cpp"
-)
+ "src/core/scene.cpp")
 
 set(INCLUDE_FILES 
 	"src/core/engine.hpp" 

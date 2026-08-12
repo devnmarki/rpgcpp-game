@@ -18,3 +18,13 @@ void SceneManager::switchScene(const std::string& id)
 		m_pCurrentScene->onEnter();
 	}
 }
+
+void SceneManager::updateActiveScene()
+{
+	m_pCurrentScene->onUpdate();
+}
+
+void SceneManager::renderActiveScene()
+{
+	m_pCurrentScene->onRender();
+}
