@@ -9,11 +9,19 @@ set(SRC_FILES
 
 set(INCLUDE_FILES 
 	"src/game.hpp" 
+	"src/gconstants.hpp"
 	"src/scenes/island_scene.hpp"
 	"src/scenes/default_scene.hpp"
+	"src/entity/entity_templates.hpp"
 )
 
 add_executable (rpg_game ${SRC_FILES} ${INCLUDE_FILES})
+
+target_include_directories(${PROJECT_NAME} 
+	PUBLIC 
+		src
+)
+
 
 target_link_libraries(${PROJECT_NAME} PRIVATE engine)
 
