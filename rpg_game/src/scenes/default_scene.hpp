@@ -3,7 +3,9 @@
 
 #include "core/engine.hpp"
 
-#include "entity/entity_templates.hpp"
+#include "entity_templates.hpp"
+#include "movement_system.hpp"
+#include "input_system.hpp"
 
 class DefaultScene : public Scene {
 public:

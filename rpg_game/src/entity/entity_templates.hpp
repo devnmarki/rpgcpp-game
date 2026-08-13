@@ -4,6 +4,7 @@
 #include "core/engine.hpp"
 
 #include "gconstants.hpp"
+#include "components.hpp"
 
 class EntityTemplates {
 public:
@@ -21,6 +22,12 @@ public:
 				.spriteId = "sprite:cool_character_down"
 			}
 		);
+		eplayer.addComponent<MovementComponent>(
+			MovementComponent{
+				.movementSpeed = 200.0f
+			}
+		);
+		eplayer.addComponent<InputComponent>();
 
 		return eplayer;
 	}

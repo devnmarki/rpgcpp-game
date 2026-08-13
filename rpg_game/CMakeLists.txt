@@ -5,6 +5,8 @@ set(SRC_FILES
 	"src/game.cpp"
 	"src/scenes/island_scene.cpp"
 	"src/scenes/default_scene.cpp"
+	"src/entity/systems/movement_system.cpp"
+	"src/entity/systems/input_system.cpp"
 )
 
 set(INCLUDE_FILES 
@@ -13,13 +15,21 @@ set(INCLUDE_FILES
 	"src/scenes/island_scene.hpp"
 	"src/scenes/default_scene.hpp"
 	"src/entity/entity_templates.hpp"
+	"src/entity/components/movement_component.hpp"
+	"src/entity/components/input_component.hpp"
+	"src/entity/components/components.hpp"
+	"src/entity/systems/movement_system.hpp"
+	"src/entity/systems/input_system.hpp"
 )
 
 add_executable (rpg_game ${SRC_FILES} ${INCLUDE_FILES})
 
 target_include_directories(${PROJECT_NAME} 
 	PUBLIC 
-		src
+		"src"
+		"src/entity"
+		"src/entity/components"
+		"src/entity/systems"
 )
 
 

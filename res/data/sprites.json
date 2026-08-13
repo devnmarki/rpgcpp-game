@@ -19,6 +19,6 @@
 
   "sprite:cool_character_down": {
     "texture_id": "texture:cool_character",
-    "src": [0, 0, 32, 32]
+    "src": [32, 0, 32, 32]
   }
 }
