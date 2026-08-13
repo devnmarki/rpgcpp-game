@@ -5,6 +5,8 @@ class Texture;
 class TextureConfig;
 class Sprite;
 class SpriteConfig;
+class SpriteSheet;
+class SpriteSheetConfig;
 
 struct Asset {
 	virtual ~Asset() = default;
@@ -21,6 +23,11 @@ struct AssetTraits<Texture> {
 template<>
 struct AssetTraits<Sprite> {
 	using ConfigType = SpriteConfig;
+};
+
+template<>
+struct AssetTraits<SpriteSheet> {
+	using ConfigType = SpriteSheetConfig;
 };
 
 #endif

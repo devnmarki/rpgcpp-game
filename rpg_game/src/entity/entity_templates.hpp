@@ -10,7 +10,7 @@ class EntityTemplates {
 public:
 	static Entity createPlayer(World& world, const glm::vec2& position) {
 		Entity eplayer = world.createEntity();
-		
+
 		eplayer.addComponent<TransformComponent>(
 			TransformComponent{ 
 				.position = position,
@@ -19,7 +19,7 @@ public:
 		);
 		eplayer.addComponent<SpriteRendererComponent>(
 			SpriteRendererComponent{
-				.spriteId = "sprite:cool_character_down"
+				.spriteId = App::getInstance().getAssetLoader().get<SpriteSheet>("sheet:cool_character")->getSpriteId(1)
 			}
 		);
 		eplayer.addComponent<MovementComponent>(

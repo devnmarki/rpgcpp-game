@@ -1,0 +1,8 @@
+{
+  "sheet:cool_character": {
+    "texture_id": "texture:cool_character",
+    "rows": 4,
+    "columns": 3,
+    "sprite_size": [ 32, 32 ]
+  } 
+}

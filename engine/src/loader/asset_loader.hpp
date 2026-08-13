@@ -9,6 +9,7 @@
 
 #include "graphics/texture.hpp"
 #include "graphics/sprite.hpp"
+#include "graphics/sprite_sheet.hpp"
 
 class AssetLoader {
 public:
@@ -20,8 +21,16 @@ public:
 
 		auto [it, success] = m_assets.insert({ id, asset });
 		if (!success) {
-			spdlog::error("Asset '{}' already exists!", id);
+			spdlog::warn("Asset '{}' already exists!", id);
 			return;
+		}
+		spdlog::info("Loaded asset '{}' successfully!", id);
+	}
+
+	void loadRaw(const std::string& id, std::shared_ptr<Asset> asset) {
+		auto [it, success] = m_assets.insert({ id, asset });
+		if (!success) {
+			spdlog::warn("Raw asset '{}' already exists in loader.", id);
 		}
 		spdlog::info("Loaded asset '{}' successfully!", id);
 	}
@@ -38,7 +47,11 @@ public:
 		file >> data;
 
 		for (const auto& [id, jsonValue] : data.items()) {
-			load<T>(id, T::parseJson(jsonValue));
+			auto config = T::parseJson(jsonValue);
+
+			config.data.id = id;
+
+			load<T>(id, config);
 		}
 	}
 

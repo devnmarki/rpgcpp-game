@@ -1,7 +1,6 @@
 project(engine)
 
 set(SRC_FILES 
-	 
 	"src/core/app.cpp"
 	"src/core/window.cpp"
 	"src/core/scene_manager.cpp"
@@ -11,6 +10,7 @@ set(SRC_FILES
 	"src/graphics/texture.cpp"
 	"src/graphics/renderer.cpp"
 	"src/graphics/render_system.cpp"
+	"src/graphics/sprite_sheet.cpp"
 	"src/ecs/system.cpp" 
 	"src/ecs/world.cpp"
 )
@@ -28,6 +28,7 @@ set(INCLUDE_FILES
 	"src/graphics/renderer.hpp"
 	"src/graphics/render_system.hpp"
 	"src/graphics/sprite.hpp"
+	"src/graphics/sprite_sheet.hpp"
 	"src/graphics/components/sprite_renderer_component.hpp"
 	"src/loader/asset_loader.hpp"
 	"src/ecs/world.hpp"
