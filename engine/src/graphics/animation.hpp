@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 struct AnimationData {
 	std::string id = "";
@@ -17,6 +18,11 @@ public:
 	explicit Animation(const AnimationData& data);
 
 	void play();
+
+	AnimationData& getData() { return m_data; }
+	const AnimationData& getData() const { return m_data; }
+	int getCurrentFrame() const { return m_currentFrame; }
+	float getFrameTime() const { return m_frameTime; }
 
 private:
 	AnimationData m_data;

@@ -28,6 +28,12 @@ public:
 			}
 		);
 		eplayer.addComponent<InputComponent>();
+		eplayer.addComponent<AnimatorComponent>(
+			AnimatorComponent{
+				.groupId = "animation:player",
+				.currentAnimationId = "walk_down"
+			}
+		);
 
 		return eplayer;
 	}

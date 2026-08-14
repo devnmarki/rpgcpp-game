@@ -33,7 +33,7 @@ public:
 	AssetLoader& getAssetLoader() { return *m_pAssetLoader; }
 	SceneManager& getSceneManager() { return *m_pSceneManager; }
 	Time& getTime() { return *m_pTime; }
-	AnimationStorage getAnimationStorage() { return *m_pAnimationStorage; }
+	AnimationStorage& getAnimationStorage() { return *m_pAnimationStorage; }
 
 protected:
 	virtual void onLoad() {}

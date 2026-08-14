@@ -27,12 +27,11 @@ Animation* AnimationStorage::get(const std::string& groupId, const std::string& 
 
 	auto it = m_animations.find(fullId);
 	if (it == m_animations.end()) {
-		return it->second.get();
+	    spdlog::error("There is no animation '{}'!", fullId);
+	    return nullptr;
 	}
 
-	spdlog::error("There is no animation '{}'!", fullId);
-
-	return nullptr;
+	return it->second.get();
 }
 
 std::string AnimationStorage::getFullAnimationId(const std::string& groupId, const std::string& id)
