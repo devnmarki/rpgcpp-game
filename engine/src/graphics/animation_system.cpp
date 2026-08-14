@@ -9,7 +9,7 @@ AnimationSystem::AnimationSystem(World* world, SystemPhase phase)
 
 void AnimationSystem::tick(float dt)
 {
-	getWorld()->query<AnimatorComponent>([](auto entity, AnimatorComponent& animator) {
+	getWorld()->query<AnimatorComponent>([](Entity entity, AnimatorComponent& animator) {
 		Animation* activeAnimation = App::getInstance().getAnimationStorage().get(animator.groupId, animator.currentAnimationId);
 		if (!activeAnimation)
 			return;
@@ -17,7 +17,7 @@ void AnimationSystem::tick(float dt)
 		activeAnimation->play();
 	});
 
-	getWorld()->query<AnimatorComponent, SpriteRendererComponent>([](auto entity, AnimatorComponent& animator, SpriteRendererComponent& sr) {
+	getWorld()->query<AnimatorComponent, SpriteRendererComponent>([](Entity entity, AnimatorComponent& animator, SpriteRendererComponent& sr) {
 		Animation* activeAnimation = App::getInstance().getAnimationStorage().get(animator.groupId, animator.currentAnimationId);
 		if (!activeAnimation)
 			return;

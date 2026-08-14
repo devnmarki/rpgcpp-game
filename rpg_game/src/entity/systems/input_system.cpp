@@ -8,7 +8,7 @@ InputSystem::InputSystem(World* world, SystemPhase phase)
 
 void InputSystem::tick(float dt)
 {
-	getWorld()->query<InputComponent>([](auto entity, InputComponent& input) {
+	getWorld()->query<InputComponent>([](Entity entity, InputComponent& input) {
 		input.moveLeft = Input::isKeyDown(Keys::A);
 		input.moveRight = Input::isKeyDown(Keys::D);
 		input.moveUp = Input::isKeyDown(Keys::W);

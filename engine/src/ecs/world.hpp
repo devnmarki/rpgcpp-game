@@ -42,9 +42,10 @@ public:
 	template<typename... Components, typename Func>
 	void query(Func&& func) {
 		auto view = m_registry.view<Components...>();
-		view.each([&func](auto entity, Components&... comps) {
+		view.each([this, &func](auto eid, Components&... comps) {
+			Entity entity(eid, &m_registry);
 			func(entity, comps...);
-		});
+		}); 
 	}
 
 	void clearEntities();
