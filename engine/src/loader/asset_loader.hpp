@@ -10,6 +10,7 @@
 #include "graphics/texture.hpp"
 #include "graphics/sprite.hpp"
 #include "graphics/sprite_sheet.hpp"
+#include "graphics/animation_group.hpp"
 
 class AssetLoader {
 public:

@@ -7,6 +7,8 @@ class Sprite;
 class SpriteConfig;
 class SpriteSheet;
 class SpriteSheetConfig;
+class AnimationGroup;
+class AnimationGroupConfig;
 
 struct Asset {
 	virtual ~Asset() = default;
@@ -28,6 +30,11 @@ struct AssetTraits<Sprite> {
 template<>
 struct AssetTraits<SpriteSheet> {
 	using ConfigType = SpriteSheetConfig;
+};
+
+template<>
+struct AssetTraits<AnimationGroup> {
+	using ConfigType = AnimationGroupConfig;
 };
 
 #endif

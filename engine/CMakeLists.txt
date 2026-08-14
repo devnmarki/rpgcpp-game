@@ -29,6 +29,7 @@ set(INCLUDE_FILES
 	"src/graphics/render_system.hpp"
 	"src/graphics/sprite.hpp"
 	"src/graphics/sprite_sheet.hpp"
+	"src/graphics/animation_group.hpp"
 	"src/graphics/components/sprite_renderer_component.hpp"
 	"src/loader/asset_loader.hpp"
 	"src/ecs/world.hpp"
