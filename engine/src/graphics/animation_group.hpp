@@ -1,5 +1,5 @@
-#ifndef ANIMATION_HPP
-#define ANIMATION_HPP
+#ifndef ANIMATIONGROUP_HPP
+#define ANIMATIONGROUP_HPP
 
 #include <vector>
 #include <string>
@@ -8,14 +8,7 @@
 #include <nlohmann/json.hpp>
 
 #include "loader/asset.hpp"
-
-struct AnimationData {
-	std::string id = "";
-	std::string spriteSheetId = "";
-	std::vector<int> frames;
-	float frameDuration = 0.1f;
-	bool loop = true;
-};
+#include "animation.hpp"
 
 struct AnimationGroupData {
 	std::string id = "";
@@ -25,43 +18,18 @@ struct AnimationGroupData {
 struct AnimationGroupConfig {
 	AnimationGroupData data;
 
-	static AnimationGroupConfig fromJson(const nlohmann::json& json) {
-		AnimationGroupConfig config;
-
-		if (json.contains("animations") && json["animations"].is_object()) {
-			for (const auto& [animName, animJson] : json["animations"].items()) {
-				AnimationData animData;
-
-				if (animJson.contains("sprite_sheet_id")) {
-					animData.spriteSheetId = animJson["sprite_sheet_id"];
-				}
-				if (animJson.contains("frames") && animJson["frames"].is_array()) {
-					animData.frames = animJson["frames"].get<std::vector<int>>();
-				}
-				if (animJson.contains("frame_duration")) {
-					animData.frameDuration = animJson["frame_duration"];
-				}
-				if (animJson.contains("loop")) {
-					animData.loop = animJson["loop"];
-				}
-
-				config.data.animations[animName] = animData;
-			}
-		}
-
-		return config;
-	}
+	static AnimationGroupConfig fromJson(const nlohmann::json& json);
 };
 
 class AnimationGroup : public Asset {
 public:
 	AnimationGroup() = default;
-	explicit AnimationGroup(const AnimationGroupConfig& config)
-		: m_data(config.data) { }
+	explicit AnimationGroup(const AnimationGroupConfig& config);
 
-	static AnimationGroupConfig parseJson(const nlohmann::json& json) {
-		return AnimationGroupConfig::fromJson(json);
-	}
+	static AnimationGroupConfig parseJson(const nlohmann::json& json);
+
+	AnimationGroupData& getData() { return m_data; }
+	const AnimationGroupData& getData() const { return m_data; } 
 
 private:
 	AnimationGroupData m_data;
