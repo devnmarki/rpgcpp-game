@@ -9,6 +9,7 @@
 
 #include "scene.hpp"
 #include "graphics/render_system.hpp"
+#include "graphics/animation_system.hpp"
 
 class SceneManager {
 public:
@@ -17,8 +18,6 @@ public:
 	template<typename T>
 	void addScene(const std::string& id) {
 		std::unique_ptr<T> scene = std::make_unique<T>();
-
-		//scene->getWorld().addSystem<RenderSystem>();
 
 		auto [it, success] = m_scenes.insert({ id, std::move(scene) });
 		if (!success) {

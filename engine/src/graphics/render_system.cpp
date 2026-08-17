@@ -10,7 +10,7 @@ RenderSystem::RenderSystem(World* world, SystemPhase phase)
 
 void RenderSystem::tick(float dt)
 {
-	getWorld()->query<TransformComponent, SpriteRendererComponent>([](auto entity, TransformComponent& t, SpriteRendererComponent& sr) {
+	getWorld()->query<TransformComponent, SpriteRendererComponent>([&](Entity entity, TransformComponent& t, SpriteRendererComponent& sr) {
 		Sprite* sprite = App::getInstance().getAssetLoader().get<Sprite>(sr.spriteId);
 		if (!sprite)
 			return;

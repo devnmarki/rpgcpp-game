@@ -12,6 +12,7 @@
 #include "loader/asset_loader.hpp"
 #include "scene_manager.hpp"
 #include "input.hpp"
+#include "loader/animation_storage.hpp"
 
 struct AppSpecs {
 	std::string name;
@@ -32,6 +33,7 @@ public:
 	AssetLoader& getAssetLoader() { return *m_pAssetLoader; }
 	SceneManager& getSceneManager() { return *m_pSceneManager; }
 	Time& getTime() { return *m_pTime; }
+	AnimationStorage& getAnimationStorage() { return *m_pAnimationStorage; }
 
 protected:
 	virtual void onLoad() {}
@@ -48,6 +50,7 @@ private:
 	std::unique_ptr<Renderer> m_pRenderer;
 	std::unique_ptr<AssetLoader> m_pAssetLoader;
 	std::unique_ptr<SceneManager> m_pSceneManager;
+	std::unique_ptr<AnimationStorage> m_pAnimationStorage;
 };
 
 #endif

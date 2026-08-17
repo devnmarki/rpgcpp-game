@@ -27,12 +27,12 @@ void Renderer::drawSprite(const Sprite* sprite, const glm::vec2& pos, const glm:
 	if (!sprite)
 		return;
 
-	Texture* spriteTexture = App::getInstance().getAssetLoader().get<Texture>(sprite->textureId);
+	Texture* spriteTexture = App::getInstance().getAssetLoader().get<Texture>(sprite->getTextureId());
 	if (!spriteTexture)
 		return;	
 
-	float srcW = sprite->src.has_value() ? sprite->src->w : static_cast<float>(spriteTexture->getWidth());
-	float srcH = sprite->src.has_value() ? sprite->src->h : static_cast<float>(spriteTexture->getHeight());
+	float srcW = sprite->getSource().has_value() ? sprite->getSource()->w : static_cast<float>(spriteTexture->getWidth());
+	float srcH = sprite->getSource().has_value() ? sprite->getSource()->h : static_cast<float>(spriteTexture->getHeight());
 
 	float scaledW = srcW * scale.x;
 	float scaledH = srcH * scale.y;
@@ -50,14 +50,15 @@ void Renderer::drawSprite(const Sprite* sprite, const glm::vec2& pos, const glm:
 	};
 
 	SDL_FlipMode flipMode = SDL_FLIP_NONE;
-	if (sprite->flipX && sprite->flipY)
+	if (sprite->isFlipX() && sprite->isFlipY())
 		flipMode = SDL_FLIP_HORIZONTAL_AND_VERTICAL;
-	else if (sprite->flipX)
+	else if (sprite->isFlipX())
 		flipMode = SDL_FLIP_HORIZONTAL;
-	else if (sprite->flipY)
+	else if (sprite->isFlipY())
 		flipMode = SDL_FLIP_VERTICAL;
 
-	const SDL_FRect* pSrcRect = sprite->src.has_value() ? &sprite->src.value() : nullptr;
+	auto srcOpt = sprite->getSource();
+	const SDL_FRect* pSrcRect = srcOpt.has_value() ? &srcOpt.value() : nullptr;
 
 	SDL_RenderTextureRotated(m_pHandle, spriteTexture->getHandle(), pSrcRect, &dst, rotation, &center, flipMode);
 }

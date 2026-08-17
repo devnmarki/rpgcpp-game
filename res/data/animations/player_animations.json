@@ -1,0 +1,42 @@
+{
+  "animation:player": {
+    "animations": {
+      "idle_down": {
+        "sprite_sheet_id": "sheet:cool_character",
+        "frames": [ 1 ]
+      },
+      "idle_left": {
+        "sprite_sheet_id": "sheet:cool_character",
+        "frames": [ 4 ]
+      },
+      "idle_right": {
+        "sprite_sheet_id": "sheet:cool_character",
+        "frames": [ 7 ]
+      },
+      "idle_up": {
+        "sprite_sheet_id": "sheet:cool_character",
+        "frames": [ 10 ]
+      },
+      "walk_down": {
+        "sprite_sheet_id": "sheet:cool_character",
+        "frames": [ 0, 1, 2, 1 ],
+        "frame_duration": 0.15
+      },
+      "walk_left": {
+        "sprite_sheet_id": "sheet:cool_character",
+        "frames": [ 3, 4, 5, 4 ],
+        "frame_duration": 0.15
+      },
+      "walk_right": {
+        "sprite_sheet_id": "sheet:cool_character",
+        "frames": [ 6, 7, 8, 7 ],
+        "frame_duration": 0.15
+      },
+      "walk_up": {
+        "sprite_sheet_id": "sheet:cool_character",
+        "frames": [ 9, 10, 11, 10 ],
+        "frame_duration": 0.15
+      }
+    }
+  }
+}

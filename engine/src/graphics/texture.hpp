@@ -10,12 +10,17 @@
 
 #include "loader/asset.hpp"
 
-struct TextureConfig {
+struct TextureData {
+	std::string id;
 	std::string path;
+};
+
+struct TextureConfig {
+	TextureData data;
 
 	static TextureConfig fromJson(const nlohmann::json& json) {
 		TextureConfig config;
-		config.path = json.get<std::string>();
+		config.data.path = json.get<std::string>();
 
 		return config;
 	}
@@ -23,7 +28,7 @@ struct TextureConfig {
 
 class Texture : public Asset {
 public:
-	Texture(const std::string& path);
+	Texture(const TextureData& data);
 	explicit Texture(const TextureConfig& config);
 	~Texture();
 
@@ -36,7 +41,7 @@ public:
 	SDL_Texture* getHandle() const { return m_pHandle; }
 
 private:
-	std::string m_path;
+	TextureData m_data;
 	float m_width = 0.0f;
 	float m_height = 0.0f;
 	SDL_Texture* m_pHandle;

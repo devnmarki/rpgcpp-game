@@ -20,6 +20,7 @@ App::App(const AppSpecs& specs)
 	m_pAssetLoader = std::make_unique<AssetLoader>();
 	m_pSceneManager = std::make_unique<SceneManager>();
 	m_pRenderer = std::make_unique<Renderer>();
+	m_pAnimationStorage = std::make_unique<AnimationStorage>();
 
 	onLoad();
 }
