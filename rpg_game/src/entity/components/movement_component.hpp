@@ -7,7 +7,7 @@ struct MovementComponent {
 	float movementSpeed = 100.0f;
 	glm::vec2 velocity = glm::vec2(0.0f);
 	bool isMoving = false;
-	bool wasMoving = false;
+	bool wasMoving = true;
 };
 
 struct CardinalMovementTag {};

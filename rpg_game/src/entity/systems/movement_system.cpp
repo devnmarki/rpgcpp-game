@@ -50,7 +50,7 @@ void MovementSystem::tick(float dt)
 		if (directionChanged || movementStateChanged) {
 			entity.addComponent<AnimationSwitchComponent>(AnimationSwitchComponent{
 				.nextAnimation = animState + "_" + DIRECTION_TO_STRING.at(direction.direction)
-				});
+			});
 		}
 
 		movement.wasMoving = movement.isMoving;
