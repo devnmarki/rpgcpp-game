@@ -1,6 +1,9 @@
 #ifndef WORLD_HPP
 #define WORLD_HPP
 
+#include <tuple>
+#include <type_traits>
+
 #include <entt/entt.hpp>
 
 #include "entity.hpp"
@@ -42,15 +45,27 @@ public:
 	template<typename... Components, typename Func>
 	void query(Func&& func) {
 		auto view = m_registry.view<Components...>();
-		view.each([this, &func](auto eid, Components&... comps) {
+		for (auto eid : view) {
 			Entity entity(eid, &m_registry);
-			func(entity, comps...);
-		}); 
+			auto args = std::tuple_cat(queryArg<Components>(view, eid)...);
+			std::apply([&](auto&... comps) { func(entity, comps...); }, args);
+		}
 	}
 
 	void clearEntities();
 
 	std::vector<std::unique_ptr<System>>& getSystems() { return m_systems; }
+
+private:
+	template<typename Component, typename View>
+	static auto queryArg(View& view, entt::entity eid) {
+		if constexpr (std::is_empty_v<Component>) {
+			return std::tuple<>{};
+		}
+		else {
+			return std::tuple<Component&>(view.template get<Component>(eid));
+		}
+	}
 
 private:
 	entt::registry m_registry;

@@ -34,6 +34,12 @@ public:
 				.currentAnimationId = "walk_down"
 			}
 		);
+		eplayer.addComponent<DirectionComponent>(
+			DirectionComponent{
+				.direction = Directions::Down
+			}
+		);
+		eplayer.addComponent<CardinalMovementTag>();
 
 		return eplayer;
 	}

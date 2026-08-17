@@ -29,4 +29,10 @@ void AnimationSystem::tick(float dt)
 		std::string currentFrameSpriteId = animationSheet->getSpriteId(activeAnimation->getData().frames[activeAnimation->getCurrentFrame()]);
 		sr.spriteId = currentFrameSpriteId;
 	});
+
+	getWorld()->query<AnimatorComponent, AnimationSwitchComponent>
+		([](Entity entity, AnimatorComponent& animator, AnimationSwitchComponent& animationSwitch) {
+		animator.currentAnimationId = animationSwitch.nextAnimation;
+		entity.removeComponent<AnimationSwitchComponent>();
+	});
 }

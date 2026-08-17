@@ -12,8 +12,8 @@ public:
 	virtual ~Entity() = default;
 
 	template<typename T, typename... Args>
-	T& addComponent(Args&&... args) {
-		return m_registry->emplace<T>(m_eid, std::forward<Args>(args)...);
+	void addComponent(Args&&... args) {
+		m_registry->emplace_or_replace<T>(m_eid, std::forward<Args>(args)...);
 	}
 
 	template<typename T>
@@ -27,8 +27,8 @@ public:
 	}
 
 	template<typename T>
-	T& removeComponent() {
-		return m_registry->remove<T>(m_eid);
+	void removeComponent() {
+		m_registry->remove<T>(m_eid);
 	}
 
 	void destroy() {

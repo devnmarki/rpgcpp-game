@@ -17,6 +17,7 @@ set(INCLUDE_FILES
 	"src/entity/entity_templates.hpp"
 	"src/entity/components/movement_component.hpp"
 	"src/entity/components/input_component.hpp"
+	"src/entity/components/direction_component.hpp"
 	"src/entity/components/components.hpp"
 	"src/entity/systems/movement_system.hpp"
 	"src/entity/systems/input_system.hpp"

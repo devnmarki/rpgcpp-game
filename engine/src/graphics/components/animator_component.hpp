@@ -11,6 +11,8 @@ struct AnimatorComponent {
 	std::string currentAnimationId = "";
 };
 
-struct AnimationSwitchComponent {};
+struct AnimationSwitchComponent {
+	std::string nextAnimation = "";
+};
 
 #endif
