@@ -5,6 +5,7 @@
 #include <string>
 
 #include <SDL3/SDL.h>
+#include <tmxlite/Map.hpp>
 
 #include "window.hpp"
 #include "utils/time.hpp"

@@ -3,12 +3,10 @@
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(GLOBAL_RES_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/res")
 set(GLOBAL_RES_DEST   "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res")
-
 file(MAKE_DIRECTORY "${GLOBAL_RES_DEST}")
 
 if (POLICY CMP0141)
@@ -28,6 +26,16 @@ set(SDL_IMAGE_AVIF OFF CACHE BOOL "" FORCE)
 add_subdirectory(third_party/sdl3)
 add_subdirectory(third_party/sdl3_image)
 add_subdirectory(third_party/spdlog)
+
+include(FetchContent)
+
+FetchContent_Declare(
+    tmxlite
+    GIT_REPOSITORY https://github.com/fallahn/tmxlite.git
+    GIT_TAG        master
+    SOURCE_SUBDIR  tmxlite
+)
+FetchContent_MakeAvailable(tmxlite)
 
 add_subdirectory (rpg_game)
 add_subdirectory (engine)

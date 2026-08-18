@@ -57,6 +57,7 @@ target_include_directories(${PROJECT_NAME}
 		"${CMAKE_SOURCE_DIR}/third_party/glm"
         "${CMAKE_SOURCE_DIR}/third_party/json/single_include"
         "${CMAKE_SOURCE_DIR}/third_party/entt/single_include"
+		"${tmxlite_SOURCE_DIR}/tmxlite/include"
 )
 
 target_link_libraries(${PROJECT_NAME} 
@@ -64,6 +65,7 @@ target_link_libraries(${PROJECT_NAME}
 		SDL3::SDL3-shared
 		SDL3_image::SDL3_image-shared
 		spdlog::spdlog
+		tmxlite
 )
 
 add_dependencies(${PROJECT_NAME} CopyResources)
