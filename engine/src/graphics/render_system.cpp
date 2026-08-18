@@ -16,20 +16,37 @@ void RenderSystem::tick(float dt)
 
 void RenderSystem::renderSprites()
 {
+    CameraComponent* cam = queryCameraComponent();
+    if (!cam) 
+        return;
+
 	getWorld()->query<TransformComponent, SpriteRendererComponent>([&](Entity entity, TransformComponent& t, SpriteRendererComponent& sr) {
 		Sprite* sprite = App::getInstance().getAssetLoader().get<Sprite>(sr.spriteId);
 		if (!sprite)
 			return;
 
-		App::getInstance().getRenderer().drawSprite(sprite, t);
+        glm::vec2 screenPos = worldToScreen(t.position, *cam);
+
+		App::getInstance().getRenderer().drawSprite(
+            sprite,
+            screenPos,
+            t.scale * cam->zoom,
+            t.rotation
+        );
 	});
 }
 
 void RenderSystem::renderTilemaps()
 {
-    const float screenW = static_cast<float>(App::getInstance().getWindow().getWidth());
-    const float screenH = static_cast<float>(App::getInstance().getWindow().getHeight());
-    const int marginTiles = 2;
+    CameraComponent* cam = queryCameraComponent();
+    if (!cam)
+        return;
+
+    const glm::vec2 viewSize = getViewSize(*cam);
+    const glm::vec2 viewTopLeft = cam->position - viewSize * 0.5f;
+    const glm::vec2 viewBottomRight = cam->position + viewSize * 0.5f;
+
+    const int margin = 2;
 
     getWorld()->query<TransformComponent, TilemapComponent>(
         [&](Entity, TransformComponent& transform, TilemapComponent& tilemapComp)
@@ -45,23 +62,21 @@ void RenderSystem::renderTilemaps()
             const float tileH = static_cast<float>(tileSize.y) * transform.scale.y;
             const glm::vec2 mapOrigin = transform.position;
 
-            int startX = static_cast<int>(std::floor((0.0f - mapOrigin.x) / tileW)) - marginTiles;
-            int startY = static_cast<int>(std::floor((0.0f - mapOrigin.y) / tileH)) - marginTiles;
-            int endX = static_cast<int>(std::ceil((screenW - mapOrigin.x) / tileW)) + marginTiles;
-            int endY = static_cast<int>(std::ceil((screenH - mapOrigin.y) / tileH)) + marginTiles;
+            int startX = static_cast<int>(std::floor((viewTopLeft.x - mapOrigin.x) / tileW)) - margin;
+            int startY = static_cast<int>(std::floor((viewTopLeft.y - mapOrigin.y) / tileH)) - margin;
+            int endX = static_cast<int>(std::ceil((viewBottomRight.x - mapOrigin.x) / tileW)) + margin;
+            int endY = static_cast<int>(std::ceil((viewBottomRight.y - mapOrigin.y) / tileH)) + margin;
 
             startX = std::max(0, startX);
             startY = std::max(0, startY);
             endX = std::min(static_cast<int>(mapSize.x), endX);
             endY = std::min(static_cast<int>(mapSize.y), endY);
 
-            if (startX >= endX || startY >= endY)
-                return;
+            if (startX >= endX || startY >= endY) return;
 
             for (const auto& layerPtr : map.getLayers())
             {
-                if (layerPtr->getType() != tmx::Layer::Type::Tile)
-                    continue;
+                if (layerPtr->getType() != tmx::Layer::Type::Tile) continue;
 
                 const auto& tileLayer = layerPtr->getLayerAs<tmx::TileLayer>();
                 const auto& tiles = tileLayer.getTiles();
@@ -101,16 +116,18 @@ void RenderSystem::renderTilemaps()
                             static_cast<float>(tsTileSize.y)
                         };
 
-                        glm::vec2 pos{
+                        glm::vec2 worldPos{
                             mapOrigin.x + tx * tileW,
                             mapOrigin.y + ty * tileH
                         };
 
+                        glm::vec2 screenPos = worldToScreen(worldPos, *cam);
+
                         SDL_FRect dst{
-                            pos.x,
-                            pos.y,
-                            tileW,
-                            tileH
+                            screenPos.x,
+                            screenPos.y,
+                            tileW * cam->zoom, 
+                            tileH * cam->zoom
                         };
 
                         SDL_FlipMode flip = SDL_FLIP_NONE;
@@ -122,11 +139,8 @@ void RenderSystem::renderTilemaps()
                         SDL_RenderTextureRotated(
                             App::getInstance().getRenderer().getHandle(),
                             tex->getHandle(),
-                            &src,
-                            &dst,
-                            0.0f,
-                            nullptr,
-                            flip
+                            &src, &dst,
+                            0.0f, nullptr, flip
                         );
                     }
                 }
@@ -147,4 +161,13 @@ const tmx::Tileset* RenderSystem::findTileset(const tmx::Map& map, uint32_t gid)
 	}
 
 	return nullptr;
+}
+
+CameraComponent* RenderSystem::queryCameraComponent()
+{
+    CameraComponent* cam = nullptr;
+    getWorld()->query<CameraComponent>([&](Entity, CameraComponent& c) {
+        cam = &c;
+    });
+    return cam;
 }

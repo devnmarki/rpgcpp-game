@@ -10,6 +10,8 @@
 #include "scene.hpp"
 #include "graphics/render_system.hpp"
 #include "graphics/animation_system.hpp"
+#include "camera_system.hpp"
+#include "camera_entity.hpp"
 
 class SceneManager {
 public:
