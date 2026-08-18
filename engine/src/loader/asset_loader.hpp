@@ -11,6 +11,7 @@
 #include "graphics/sprite.hpp"
 #include "graphics/sprite_sheet.hpp"
 #include "graphics/animation_group.hpp"
+#include "tilemap/tilemap.hpp"
 
 class AssetLoader {
 public:

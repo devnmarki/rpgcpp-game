@@ -17,6 +17,7 @@ set(SRC_FILES
 	"src/loader/animation_storage.cpp"
 	"src/ecs/system.cpp" 
 	"src/ecs/world.cpp"
+	"src/tilemap/tilemap.cpp"
 )
 
 set(INCLUDE_FILES 
@@ -44,6 +45,7 @@ set(INCLUDE_FILES
 	"src/ecs/entity.hpp"
 	"src/ecs/system.hpp"
 	"src/ecs/components.hpp"
+	"src/tilemap/tilemap.hpp"
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES} ${INCLUDE_FILES})
