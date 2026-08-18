@@ -4,11 +4,5 @@
     "rows": 4,
     "columns": 3,
     "sprite_size": [ 32, 32 ]
-  },
-  "sheet:grass_tileset": {
-    "texture_id": "texture:grass_tileset",
-    "rows": 7,
-    "columns": 8,
-    "sprite_size": [ 16, 16 ]
-  } 
+  }
 }

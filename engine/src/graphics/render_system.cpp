@@ -27,91 +27,111 @@ void RenderSystem::renderSprites()
 
 void RenderSystem::renderTilemaps()
 {
-	getWorld()->query<TransformComponent, TilemapComponent>([&](Entity entity, TransformComponent& transform, TilemapComponent& tilemapComp) {
-		Tilemap* tilemapAsset = App::getInstance().getAssetLoader().get<Tilemap>(tilemapComp.tilemapId);
-		if (!tilemapAsset)
-			return;
+    const float screenW = static_cast<float>(App::getInstance().getWindow().getWidth());
+    const float screenH = static_cast<float>(App::getInstance().getWindow().getHeight());
+    const int marginTiles = 2;
 
-		tmx::Map& map = tilemapAsset->getMap();
+    getWorld()->query<TransformComponent, TilemapComponent>(
+        [&](Entity, TransformComponent& transform, TilemapComponent& tilemapComp)
+        {
+            Tilemap* tilemapAsset = App::getInstance().getAssetLoader().get<Tilemap>(tilemapComp.tilemapId);
+            if (!tilemapAsset) return;
 
-		const auto tileSize  = map.getTileSize();
-		const auto mapSize   = map.getTileCount();
-		const float mapW     = static_cast<float>(mapSize.x);
-		const float mapH     = static_cast<float>(mapSize.y);
+            const tmx::Map& map = tilemapAsset->getMap();
+            const auto tileSize = map.getTileSize();
+            const auto mapSize = map.getTileCount();
 
-		const glm::vec2 mapOrigin = transform.position;
+            const float tileW = static_cast<float>(tileSize.x) * transform.scale.x;
+            const float tileH = static_cast<float>(tileSize.y) * transform.scale.y;
+            const glm::vec2 mapOrigin = transform.position;
 
-		for (const auto& layerPtr : map.getLayers()) {
-			if (layerPtr->getType() != tmx::Layer::Type::Tile)
-				continue;
+            int startX = static_cast<int>(std::floor((0.0f - mapOrigin.x) / tileW)) - marginTiles;
+            int startY = static_cast<int>(std::floor((0.0f - mapOrigin.y) / tileH)) - marginTiles;
+            int endX = static_cast<int>(std::ceil((screenW - mapOrigin.x) / tileW)) + marginTiles;
+            int endY = static_cast<int>(std::ceil((screenH - mapOrigin.y) / tileH)) + marginTiles;
 
-			const auto& tileLayer = layerPtr->getLayerAs<tmx::TileLayer>();
-			const auto& tiles = tileLayer.getTiles();
+            startX = std::max(0, startX);
+            startY = std::max(0, startY);
+            endX = std::min(static_cast<int>(mapSize.x), endX);
+            endY = std::min(static_cast<int>(mapSize.y), endY);
 
-			if (tiles.empty())
-				continue;
+            if (startX >= endX || startY >= endY)
+                return;
 
-			for (size_t i = 0; i < tiles.size(); ++i) {
-				const auto& tile = tiles[i];
-				if (tile.ID == 0)
-					continue;
+            for (const auto& layerPtr : map.getLayers())
+            {
+                if (layerPtr->getType() != tmx::Layer::Type::Tile)
+                    continue;
 
-				const tmx::Tileset* tileset = findTileset(map, tile.ID);
-				if (!tileset)
-					continue;
+                const auto& tileLayer = layerPtr->getLayerAs<tmx::TileLayer>();
+                const auto& tiles = tileLayer.getTiles();
+                if (tiles.empty()) continue;
 
-				const uint32_t localId = tile.ID - tileset->getFirstGID();
+                for (int ty = startY; ty < endY; ++ty)
+                {
+                    for (int tx = startX; tx < endX; ++tx)
+                    {
+                        const size_t index = static_cast<size_t>(ty * mapSize.x + tx);
+                        if (index >= tiles.size()) continue;
 
-				std::string textureId = "texture:" + tileset->getName();
-				Texture* tex = App::getInstance().getAssetLoader().get<Texture>(textureId);
-				if (!tex)
-					continue;
+                        const auto& tile = tiles[index];
+                        if (tile.ID == 0) continue;
 
-				const auto tsTileSize = tileset->getTileSize();
-				const uint32_t columns = tileset->getColumnCount() > 0 ? tileset->getColumnCount() : (tileset->getImageSize().x / tsTileSize.x);
-				const uint32_t tu = localId % columns;
-				const uint32_t tv = localId / columns;
+                        const tmx::Tileset* tileset = findTileset(map, tile.ID);
+                        if (!tileset) continue;
 
-				SDL_FRect src{
-					static_cast<float>(tu * tsTileSize.x + tileset->getMargin() + tu * tileset->getSpacing()),
-					static_cast<float>(tv * tsTileSize.y + tileset->getMargin() + tv * tileset->getSpacing()),
-					static_cast<float>(tsTileSize.x),
-					static_cast<float>(tsTileSize.y)
-				};
+                        const uint32_t localId = tile.ID - tileset->getFirstGID();
 
-				const uint32_t tx = static_cast<uint32_t>(i % mapSize.x);
-				const uint32_t ty = static_cast<uint32_t>(i / mapSize.x);
+                        std::string textureId = "texture:" + tileset->getName();
+                        Texture* tex = App::getInstance().getAssetLoader().get<Texture>(textureId);
+                        if (!tex) continue;
 
-				glm::vec2 pos{
-					mapOrigin.x + tx * tileSize.x * transform.scale.x,
-					mapOrigin.y + ty * tileSize.y * transform.scale.y
-				};
+                        const auto tsTileSize = tileset->getTileSize();
+                        const uint32_t columns = tileset->getColumnCount() > 0
+                            ? tileset->getColumnCount()
+                            : (tileset->getImageSize().x / tsTileSize.x);
 
-				SDL_FlipMode flip = SDL_FLIP_NONE;
-				if (tile.flipFlags & tmx::TileLayer::FlipFlag::Horizontal)
-					flip = static_cast<SDL_FlipMode>(flip | SDL_FLIP_HORIZONTAL);
-				if (tile.flipFlags & tmx::TileLayer::FlipFlag::Vertical)
-					flip = static_cast<SDL_FlipMode>(flip | SDL_FLIP_VERTICAL);
+                        const uint32_t tu = localId % columns;
+                        const uint32_t tv = localId / columns;
 
-				SDL_FRect dst{
-					pos.x,
-					pos.y,
-					static_cast<float>(tileSize.x) * transform.scale.x,
-					static_cast<float>(tileSize.y) * transform.scale.y
-				};
+                        SDL_FRect src{
+                            static_cast<float>(tu * tsTileSize.x + tileset->getMargin() + tu * tileset->getSpacing()),
+                            static_cast<float>(tv * tsTileSize.y + tileset->getMargin() + tv * tileset->getSpacing()),
+                            static_cast<float>(tsTileSize.x),
+                            static_cast<float>(tsTileSize.y)
+                        };
 
-				SDL_RenderTextureRotated(
-					App::getInstance().getRenderer().getHandle(),
-					tex->getHandle(),
-					&src,
-					&dst,
-					0.0f,
-					nullptr,
-					flip
-				);
-			}
-		}
-	});
+                        glm::vec2 pos{
+                            mapOrigin.x + tx * tileW,
+                            mapOrigin.y + ty * tileH
+                        };
+
+                        SDL_FRect dst{
+                            pos.x,
+                            pos.y,
+                            tileW,
+                            tileH
+                        };
+
+                        SDL_FlipMode flip = SDL_FLIP_NONE;
+                        if (tile.flipFlags & tmx::TileLayer::FlipFlag::Horizontal)
+                            flip = static_cast<SDL_FlipMode>(flip | SDL_FLIP_HORIZONTAL);
+                        if (tile.flipFlags & tmx::TileLayer::FlipFlag::Vertical)
+                            flip = static_cast<SDL_FlipMode>(flip | SDL_FLIP_VERTICAL);
+
+                        SDL_RenderTextureRotated(
+                            App::getInstance().getRenderer().getHandle(),
+                            tex->getHandle(),
+                            &src,
+                            &dst,
+                            0.0f,
+                            nullptr,
+                            flip
+                        );
+                    }
+                }
+            }
+        });
 }
 
 const tmx::Tileset* RenderSystem::findTileset(const tmx::Map& map, uint32_t gid)

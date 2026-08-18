@@ -22,6 +22,8 @@ public:
 	void beginFrame(const Color& color);
 	void endFrame();
 
+	int getWidth() const { return m_width; }
+	int getHeight() const { return m_height; }
 	std::string getTitle() { return m_specs.title; }
 	SDL_Window* getHandle() { return m_pHandle; }
 	SDL_Renderer* getRenderer() { return m_pRenderer; }
@@ -31,6 +33,9 @@ private:
 
 	SDL_Window* m_pHandle;
 	SDL_Renderer* m_pRenderer;
+
+	int m_width = 0;
+	int m_height = 0;
 };
 
 #endif

@@ -20,6 +20,8 @@ void Window::create()
 	if (!SDL_CreateWindowAndRenderer(m_specs.title.c_str(), m_specs.width, m_specs.height, NULL, &m_pHandle, &m_pRenderer)) {
 		std::cout << "Failed to create SDL window! Error: " << SDL_GetError() << std::endl;
 	}
+
+	SDL_GetWindowSize(m_pHandle, &m_width, &m_height);
 }
 
 void Window::beginFrame(const Color& color = { 0, 0, 0 })
