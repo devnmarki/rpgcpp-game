@@ -4,5 +4,6 @@
 #include "core/components/transform_component.hpp"
 #include "graphics/components/sprite_renderer_component.hpp"
 #include "graphics/components/animator_component.hpp"
+#include "tilemap/components/tilemap_component.hpp"
 
 #endif

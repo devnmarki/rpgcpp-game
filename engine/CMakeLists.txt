@@ -46,6 +46,8 @@ set(INCLUDE_FILES
 	"src/ecs/system.hpp"
 	"src/ecs/components.hpp"
 	"src/tilemap/tilemap.hpp"
+	"src/tilemap/tilemap_entity.hpp"
+	"src/tilemap/components/tilemap_component.hpp"
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES} ${INCLUDE_FILES})

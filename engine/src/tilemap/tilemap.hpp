@@ -2,7 +2,11 @@
 #define TILEMAP_HPP
 
 #include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
 #include <tmxlite/Map.hpp>
+#include <tmxlite/Layer.hpp>
+#include <tmxlite/TileLayer.hpp>
+#include <tmxlite/Tileset.hpp>
 
 #include "loader/asset.hpp"
 
@@ -24,8 +28,13 @@ public:
 
 	static TilemapConfig parseJson(const nlohmann::json& json);
 
+	const TilemapData& getData() const { return m_data; }
+	tmx::Map& getMap() { return m_map; }
+	const tmx::Map& getMap() const { return m_map; }
+
 private:
 	TilemapData m_data;
+	tmx::Map m_map;
 };
 
 #endif
