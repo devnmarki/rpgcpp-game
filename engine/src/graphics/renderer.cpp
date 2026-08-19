@@ -67,3 +67,29 @@ void Renderer::drawSprite(const Sprite* sprite, const TransformComponent& transf
 {
 	drawSprite(sprite, transform.position, transform.scale, transform.rotation);
 }
+
+void Renderer::drawRect(const glm::vec2& position, const glm::vec2& size, const Color& color)
+{
+	SDL_FRect rect = {
+		position.x,
+		position.y,
+		size.x,
+		size.y
+	};
+
+	SDL_SetRenderDrawColor(m_pHandle, color.r, color.g, color.b, color.a);
+	SDL_RenderRect(m_pHandle, &rect);
+}
+
+void Renderer::fillRect(const glm::vec2& position, const glm::vec2& size, const Color& color)
+{
+	SDL_FRect rect = {
+		position.x,
+		position.y,
+		size.x,
+		size.y
+	};
+
+	SDL_SetRenderDrawColor(m_pHandle, color.r, color.g, color.b, color.a);
+	SDL_RenderFillRect(m_pHandle, &rect);
+}
