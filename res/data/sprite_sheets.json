@@ -4,5 +4,11 @@
     "rows": 4,
     "columns": 3,
     "sprite_size": [ 32, 32 ]
-  }
+  },
+  "sheet:character_base": {
+    "texture_id": "texture:character_base",
+    "rows": 8,
+    "columns": 4,
+    "sprite_size": [ 32, 32 ]
+  } 
 }
