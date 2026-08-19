@@ -10,6 +10,4 @@ struct MovementComponent {
 	bool wasMoving = true;
 };
 
-struct CardinalMovementTag {};
-
 #endif

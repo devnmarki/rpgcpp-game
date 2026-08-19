@@ -3,10 +3,22 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "test_island.tmx",
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "grass_tileset.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 5.5
+        },
+        "test_island.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 276.66666666666663,
+                "y": 110.33333333333331
+            }
+        }
     },
     "last.imagePath": "D:/Dev/cpp/sdl3/rpg_game/res/textures/tilesets",
     "map.height": 32,
@@ -15,9 +27,13 @@
     "map.tileWidth": 16,
     "map.width": 64,
     "openFiles": [
+        "test_island.tmx",
+        "grass_tileset.tsx"
     ],
     "project": "rpg_game.tiled-project",
     "recentFiles": [
+        "grass_tileset.tsx",
+        "test_island.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -1,7 +1,10 @@
 #ifndef CAMERASYSTEM_HPP
 #define CAMERASYSTEM_HPP
 
+#include <algorithm>
+
 #include "ecs/system.hpp"
+#include "core/input.hpp"
 
 class CameraSystem : public System {
 public:

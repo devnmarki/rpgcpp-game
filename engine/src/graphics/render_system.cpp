@@ -46,7 +46,7 @@ void RenderSystem::renderTilemaps()
     const glm::vec2 viewTopLeft = cam->position - viewSize * 0.5f;
     const glm::vec2 viewBottomRight = cam->position + viewSize * 0.5f;
 
-    const int margin = 2;
+    const int margin = 1;
 
     getWorld()->query<TransformComponent, TilemapComponent>(
         [&](Entity, TransformComponent& transform, TilemapComponent& tilemapComp)
