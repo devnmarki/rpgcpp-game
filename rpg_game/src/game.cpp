@@ -6,7 +6,10 @@ Game::Game()
 	getAssetLoader().loadGroup<Texture>("res/data/textures.json");
 	getAssetLoader().loadGroup<Sprite>("res/data/sprites.json");
 	getAssetLoader().loadGroup<SpriteSheet>("res/data/sprite_sheets.json");
+	getAssetLoader().loadGroup<Tilemap>("res/data/tilemaps.json");
+
 	getAssetLoader().loadGroup<AnimationGroup>("res/data/animations/player_animations.json");
+	getAssetLoader().loadGroup<AnimationGroup>("res/data/animations/cool_character_animations.json");
 
 	getSceneManager().addScene<DefaultScene>("default_scene");
 	getSceneManager().addScene<IslandScene>("island_scene");

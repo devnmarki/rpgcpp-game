@@ -4,5 +4,6 @@
 #include <iostream>
 
 #include "app.hpp"
+#include "tilemap/tilemap_entity.hpp"
 
 #endif

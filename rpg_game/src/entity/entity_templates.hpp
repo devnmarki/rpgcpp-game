@@ -11,6 +11,7 @@ public:
 	static Entity createPlayer(World& world, const glm::vec2& position) {
 		Entity eplayer = world.createEntity();
 
+		eplayer.addComponent<PlayerTag>();
 		eplayer.addComponent<TransformComponent>(
 			TransformComponent{ 
 				.position = position,

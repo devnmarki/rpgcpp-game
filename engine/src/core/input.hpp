@@ -65,7 +65,13 @@ enum class Keys {
     F9 = SDL_SCANCODE_F9,
     F10 = SDL_SCANCODE_F10,
     F11 = SDL_SCANCODE_F11,
-    F12 = SDL_SCANCODE_F12
+    F12 = SDL_SCANCODE_F12,
+
+    // Arrows
+    Left = SDL_SCANCODE_LEFT,
+    Right = SDL_SCANCODE_RIGHT,
+    Up = SDL_SCANCODE_UP,
+    Down = SDL_SCANCODE_DOWN,
 };
 
 class Input {

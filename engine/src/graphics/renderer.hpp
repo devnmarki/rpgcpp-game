@@ -33,6 +33,8 @@ public:
 		const TransformComponent& transform
 	);
 
+	SDL_Renderer* getHandle() { return m_pHandle; }
+
 private:
 	SDL_Renderer* m_pHandle;
 };

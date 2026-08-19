@@ -55,4 +55,17 @@ void MovementSystem::tick(float dt)
 
 		movement.wasMoving = movement.isMoving;
 	});
+
+	CameraComponent* cameraComp = nullptr;
+	if (!cameraComp) {
+		getWorld()->query<CameraComponent>([&](Entity, CameraComponent& camQuery) {
+			cameraComp = &camQuery;
+		});
+	}
+
+	if (cameraComp) {
+		getWorld()->query<PlayerTag, TransformComponent>([&](Entity, TransformComponent& transform) {
+			cameraComp->target = &transform;
+		});
+	}
 }

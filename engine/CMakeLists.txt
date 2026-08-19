@@ -6,6 +6,7 @@ set(SRC_FILES
 	"src/core/scene_manager.cpp"
 	"src/core/input.cpp"
 	"src/core/scene.cpp"
+	"src/core/camera_system.cpp"
 	"src/utils/time.cpp" 
 	"src/graphics/texture.cpp"
 	"src/graphics/renderer.cpp"
@@ -17,6 +18,7 @@ set(SRC_FILES
 	"src/loader/animation_storage.cpp"
 	"src/ecs/system.cpp" 
 	"src/ecs/world.cpp"
+	"src/tilemap/tilemap.cpp"
 )
 
 set(INCLUDE_FILES 
@@ -27,6 +29,10 @@ set(INCLUDE_FILES
 	"src/core/scene_manager.hpp"
 	"src/core/input.hpp"
 	"src/core/components/transform_component.hpp"
+	"src/core/components/camera_component.hpp"
+	"src/core/camera_entity.hpp"
+	"src/core/camera_utils.hpp"
+	"src/core/camera_system.hpp"
 	"src/utils/utils.hpp"
 	"src/graphics/texture.hpp"
 	"src/graphics/renderer.hpp"
@@ -44,6 +50,9 @@ set(INCLUDE_FILES
 	"src/ecs/entity.hpp"
 	"src/ecs/system.hpp"
 	"src/ecs/components.hpp"
+	"src/tilemap/tilemap.hpp"
+	"src/tilemap/tilemap_entity.hpp"
+	"src/tilemap/components/tilemap_component.hpp"
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES} ${INCLUDE_FILES})
@@ -57,6 +66,7 @@ target_include_directories(${PROJECT_NAME}
 		"${CMAKE_SOURCE_DIR}/third_party/glm"
         "${CMAKE_SOURCE_DIR}/third_party/json/single_include"
         "${CMAKE_SOURCE_DIR}/third_party/entt/single_include"
+		"${tmxlite_SOURCE_DIR}/tmxlite/include"
 )
 
 target_link_libraries(${PROJECT_NAME} 
@@ -64,6 +74,7 @@ target_link_libraries(${PROJECT_NAME}
 		SDL3::SDL3-shared
 		SDL3_image::SDL3_image-shared
 		spdlog::spdlog
+		tmxlite
 )
 
 add_dependencies(${PROJECT_NAME} CopyResources)
