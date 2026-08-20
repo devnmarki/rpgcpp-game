@@ -19,6 +19,7 @@ set(SRC_FILES
 	"src/ecs/system.cpp" 
 	"src/ecs/world.cpp"
 	"src/tilemap/tilemap.cpp"
+	"src/physics/physics_system.cpp"
 )
 
 set(INCLUDE_FILES 
@@ -53,6 +54,7 @@ set(INCLUDE_FILES
 	"src/tilemap/tilemap.hpp"
 	"src/tilemap/tilemap_entity.hpp"
 	"src/tilemap/components/tilemap_component.hpp"
+	"src/physics/physics_system.hpp"
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES} ${INCLUDE_FILES})
@@ -63,6 +65,7 @@ target_include_directories(${PROJECT_NAME}
 		"third_party/sdl3/include"
 		"third_party/sdl3_image/include"
 		"third_party/spdlog/include"
+		"third_party/box2d/include"
 		"${CMAKE_SOURCE_DIR}/third_party/glm"
         "${CMAKE_SOURCE_DIR}/third_party/json/single_include"
         "${CMAKE_SOURCE_DIR}/third_party/entt/single_include"
@@ -75,6 +78,7 @@ target_link_libraries(${PROJECT_NAME}
 		SDL3_image::SDL3_image-shared
 		spdlog::spdlog
 		tmxlite
+		box2d::box2d
 )
 
 add_dependencies(${PROJECT_NAME} CopyResources)

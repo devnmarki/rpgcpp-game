@@ -11,6 +11,7 @@
 #include "graphics/render_system.hpp"
 #include "graphics/animation_system.hpp"
 #include "camera_system.hpp"
+#include "physics/physics_system.hpp"
 #include "camera_entity.hpp"
 
 class SceneManager {
@@ -33,6 +34,11 @@ public:
 
 	void updateActiveScene();
 	void renderActiveScene();
+
+	Scene* getActiveScene() const { return m_pCurrentScene; }
+
+private:
+	void initSystems();
 
 private:
 	std::unordered_map<std::string, std::unique_ptr<Scene>> m_scenes = {};
