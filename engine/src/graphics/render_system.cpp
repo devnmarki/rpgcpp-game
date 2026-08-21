@@ -162,7 +162,7 @@ void RenderSystem::drawColliders()
         Entity& camera = app.getSceneManager().getActiveScene()->getCamera();
 
         renderer.drawRect(
-            PhysicsUtils::toPixels(glm::vec2(bodyPos.x, bodyPos.y)), 
+            PhysicsUtils::toPixels(glm::vec2(bodyPos.x, bodyPos.y)) - boxCollider.size / 2.0f, 
             boxCollider.size, 
             colliderColor, 
             &camera.getComponent<CameraComponent>()

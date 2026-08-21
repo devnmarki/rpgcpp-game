@@ -14,7 +14,7 @@ public:
 	void tick(float dt) override;
 
 private:
-	void stepWorld();
+	void stepWorld(float dt);
 	void initBodies();
 	void createBoxCollider(Entity entity, TransformComponent& transform, BoxColliderComponent& boxCollider);
 	void syncTransforms();

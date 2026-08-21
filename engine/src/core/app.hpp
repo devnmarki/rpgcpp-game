@@ -18,6 +18,7 @@
 struct AppSpecs {
 	std::string name;
 	WindowSpecs windowSpecs;
+	float gravityScale = 10.0f;
 };
 
 class App {
@@ -29,6 +30,7 @@ public:
 
 	static App& getInstance();
 
+	const AppSpecs& getSpecs() const { return m_specs; }
 	Window& getWindow() const { return *m_pWindow; }
 	Renderer& getRenderer() { return *m_pRenderer; }
 	AssetLoader& getAssetLoader() { return *m_pAssetLoader; }

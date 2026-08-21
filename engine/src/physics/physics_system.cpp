@@ -11,20 +11,19 @@ PhysicsSystem::PhysicsSystem(World* world, SystemPhase phase)
 void PhysicsSystem::tick(float dt)
 {
 	initBodies();
-	stepWorld();
+	stepWorld(dt);
 	syncTransforms();
 }
 
-void PhysicsSystem::stepWorld()
+void PhysicsSystem::stepWorld(float dt)
 {
-	constexpr float timeStep = 1.0f / 60.0f;
-	constexpr int subStepCount = 4;
-	
+	dt = std::min(dt, 0.05f);
+
 	Scene* activeScene = App::getInstance().getSceneManager().getActiveScene();
 	if (!activeScene)
 		return;
 
-	b2World_Step(activeScene->getPhysicsWorldId(), timeStep, subStepCount);
+	b2World_Step(activeScene->getPhysicsWorldId(), dt, 4);
 }
 
 void PhysicsSystem::initBodies()

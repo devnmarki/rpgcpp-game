@@ -20,8 +20,10 @@ void Scene::resetWorld(AccessKey)
 
 void Scene::createPhysicsWorld()
 {
+	const AppSpecs& appSpecs = App::getInstance().getSpecs();
+
 	m_physicsWorldDef = b2DefaultWorldDef();
-	m_physicsWorldDef.gravity = b2Vec2{ 0.0f, 10.0f };
+	m_physicsWorldDef.gravity = b2Vec2{ 0.0f, appSpecs.gravityScale };
 	m_physicsWorldId = b2CreateWorld(&m_physicsWorldDef);
 }
 

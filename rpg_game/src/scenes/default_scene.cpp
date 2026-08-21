@@ -15,5 +15,5 @@ void DefaultScene::onEnter()
 
 void DefaultScene::onUpdate()
 {
-	spdlog::info("X: {}, Y: {}", getCamera().getComponent<CameraComponent>().position.x, getCamera().getComponent<CameraComponent>().position.x);
+	//spdlog::info("X: {}, Y: {}", getCamera().getComponent<CameraComponent>().position.x, getCamera().getComponent<CameraComponent>().position.x);
 }
