@@ -21,7 +21,7 @@ void Scene::resetWorld(AccessKey)
 void Scene::createPhysicsWorld()
 {
 	m_physicsWorldDef = b2DefaultWorldDef();
-	m_physicsWorldDef.gravity = b2Vec2{ 0.0f, -10.0f };
+	m_physicsWorldDef.gravity = b2Vec2{ 0.0f, 10.0f };
 	m_physicsWorldId = b2CreateWorld(&m_physicsWorldDef);
 }
 

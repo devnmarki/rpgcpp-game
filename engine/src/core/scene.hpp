@@ -34,6 +34,7 @@ public:
 	World& getWorld() { return *m_pWorld; }
 	b2WorldId& getPhysicsWorldId() { return m_physicsWorldId; }
 	b2WorldDef& getPhysicsWorldDef() { return m_physicsWorldDef; }
+	Entity& getCamera() { return m_cameraEntity; }
 
 protected:
 	App& getApp();
@@ -49,6 +50,7 @@ private:
 	std::unique_ptr<World> m_pWorld;
 	b2WorldDef m_physicsWorldDef;
 	b2WorldId m_physicsWorldId;
+	Entity m_cameraEntity;
 
 	friend class SceneManager;
 };

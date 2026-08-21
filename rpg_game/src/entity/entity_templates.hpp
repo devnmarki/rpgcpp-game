@@ -23,6 +23,8 @@ public:
 				.spriteId = App::getInstance().getAssetLoader().get<SpriteSheet>("sheet:cool_character")->getSpriteId(1)
 			}
 		);
+		eplayer.addComponent<BoxColliderComponent>(BoxColliderComponent{ .size = { 64.f, 64.f } });
+		eplayer.addComponent<RigidBodyComponent>();
 		eplayer.addComponent<MovementComponent>(
 			MovementComponent{
 				.movementSpeed = 200.0f

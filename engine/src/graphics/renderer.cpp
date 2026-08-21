@@ -68,11 +68,13 @@ void Renderer::drawSprite(const Sprite* sprite, const TransformComponent& transf
 	drawSprite(sprite, transform.position, transform.scale, transform.rotation);
 }
 
-void Renderer::drawRect(const glm::vec2& position, const glm::vec2& size, const Color& color)
+void Renderer::drawRect(const glm::vec2& position, const glm::vec2& size, const Color& color, CameraComponent* cam)
 {
+	glm::vec2 renderPosition = cam ? worldToScreen(position, *cam) : position;
+
 	SDL_FRect rect = {
-		position.x,
-		position.y,
+		renderPosition.x,
+		renderPosition.y,
 		size.x,
 		size.y
 	};
@@ -81,11 +83,13 @@ void Renderer::drawRect(const glm::vec2& position, const glm::vec2& size, const 
 	SDL_RenderRect(m_pHandle, &rect);
 }
 
-void Renderer::fillRect(const glm::vec2& position, const glm::vec2& size, const Color& color)
+void Renderer::fillRect(const glm::vec2& position, const glm::vec2& size, const Color& color, CameraComponent* cam)
 {
+	glm::vec2 renderPosition = cam ? worldToScreen(position, *cam) : position;
+
 	SDL_FRect rect = {
-		position.x,
-		position.y,
+		renderPosition.x,
+		renderPosition.y,
 		size.x,
 		size.y
 	};

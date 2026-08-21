@@ -19,7 +19,7 @@ void SceneManager::switchScene(const std::string& id)
 		
 		initSystems();
 
-		CameraEntity::create(m_pCurrentScene->getWorld());
+		m_pCurrentScene->m_cameraEntity = CameraEntity::create(m_pCurrentScene->getWorld());
 		m_pCurrentScene->onEnter();
 	}
 }

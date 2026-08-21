@@ -10,6 +10,7 @@
 #include "sprite.hpp"
 #include "ecs/components.hpp"
 #include "utils/utils.hpp"
+#include "core/components/camera_component.hpp"
 
 class Renderer {
 public:
@@ -37,13 +38,15 @@ public:
 	void drawRect(
 		const glm::vec2& position,
 		const glm::vec2& size,
-		const Color& color
+		const Color& color,
+		CameraComponent* cam = nullptr
 	);
 
 	void fillRect(
 		const glm::vec2& position,
 		const glm::vec2& size,
-		const Color& color
+		const Color& color,
+		CameraComponent* cam = nullptr
 	);
 
 	SDL_Renderer* getHandle() { return m_pHandle; }

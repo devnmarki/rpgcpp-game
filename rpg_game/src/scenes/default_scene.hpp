@@ -12,6 +12,7 @@ public:
 	DefaultScene() = default;
 
 	void onEnter() override;
+	void onUpdate() override;
 };
 
 #endif
