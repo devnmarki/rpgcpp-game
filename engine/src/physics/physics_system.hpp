@@ -17,6 +17,7 @@ private:
 	void stepWorld(float dt);
 	void initBodies();
 	void createBoxCollider(Entity entity, TransformComponent& transform, BoxColliderComponent& boxCollider);
+	void updateRigidBodies();
 	void syncTransforms();
 };
 

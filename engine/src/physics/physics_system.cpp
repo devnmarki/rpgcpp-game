@@ -11,6 +11,8 @@ PhysicsSystem::PhysicsSystem(World* world, SystemPhase phase)
 void PhysicsSystem::tick(float dt)
 {
 	initBodies();
+
+	updateRigidBodies();
 	stepWorld(dt);
 	syncTransforms();
 }
@@ -29,7 +31,8 @@ void PhysicsSystem::stepWorld(float dt)
 void PhysicsSystem::initBodies()
 {
 	getWorld()->query<TransformComponent, BoxColliderComponent>
-		([&](Entity entity, TransformComponent& transform, BoxColliderComponent& boxCollider) {
+		([&](Entity entity, TransformComponent& transform, BoxColliderComponent& boxCollider) 
+	{
 		if (boxCollider.hasBody())
 			return;
 
@@ -71,10 +74,31 @@ void PhysicsSystem::createBoxCollider(Entity entity, TransformComponent& transfo
 	boxCollider.bodyId = bodyId;
 }
 
+void PhysicsSystem::updateRigidBodies()
+{
+	getWorld()->query<BoxColliderComponent, RigidBodyComponent>(
+		[](Entity, BoxColliderComponent& collider, RigidBodyComponent& rigidBody) 
+	{
+		if (!collider.hasBody())
+			return;
+
+		b2BodyId body = collider.bodyId;
+		
+		b2Vec2 vel = PhysicsUtils::toMeters(b2Vec2{rigidBody.velocity.x, rigidBody.velocity.y });
+		b2Body_SetLinearVelocity(body, vel);
+
+		b2MassData massData = { rigidBody.mass };
+		b2Body_SetMassData(body, massData);
+
+		b2Body_SetGravityScale(body, rigidBody.gravityScale);
+	});
+}
+
 void PhysicsSystem::syncTransforms()
 {
 	getWorld()->query<TransformComponent, BoxColliderComponent>(
-		[](Entity, TransformComponent& transform, BoxColliderComponent& boxCollider) {
+		[](Entity, TransformComponent& transform, BoxColliderComponent& boxCollider) 
+	{
 		if (!boxCollider.hasBody())
 			return;
 

@@ -24,7 +24,11 @@ public:
 			}
 		);
 		eplayer.addComponent<BoxColliderComponent>(BoxColliderComponent{ .size = { 64.f, 64.f } });
-		eplayer.addComponent<RigidBodyComponent>();
+		eplayer.addComponent<RigidBodyComponent>(
+			RigidBodyComponent{
+				.gravityScale = 0.0f
+			}
+		);
 		eplayer.addComponent<MovementComponent>(
 			MovementComponent{
 				.movementSpeed = 200.0f
