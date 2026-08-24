@@ -9,11 +9,12 @@ void DefaultScene::onEnter()
 
 	getCamera().getComponent<CameraComponent>().damping = 100.0f;
 
-	EntityTemplates::createPlayer(getWorld(), glm::vec2(400.0f, 350.0f));
+	PlayerEntity::create(getWorld(), glm::vec2(400.f, 350.f));
+	TriggerEntity::create(getWorld(), glm::vec2(500.f, 400.f));
 	TilemapEntity::create(getWorld(), "tilemap:test_island", global::GAME_SCALE_V);
 }
 
 void DefaultScene::onUpdate()
 {
-	//spdlog::info("X: {}, Y: {}", getCamera().getComponent<CameraComponent>().position.x, getCamera().getComponent<CameraComponent>().position.x);
+
 }

@@ -3,7 +3,8 @@
 
 #include "core/engine.hpp"
 
-#include "entity_templates.hpp"
+#include "player_entity.hpp"
+#include "trigger_entity.hpp"
 #include "movement_system.hpp"
 #include "input_system.hpp"
 

@@ -16,13 +16,28 @@ public:
 		m_registry->emplace_or_replace<T>(m_eid, std::forward<Args>(args)...);
 	}
 
+	template<typename T, typename... Args>
+	T& getOrAddComponent(Args&&... args)
+	{
+		if (hasComponent<T>())
+			return getComponent<T>();
+
+		addComponent<T>(std::forward<Args>(args)...);
+		return getComponent<T>();
+	}
+
 	template<typename T>
 	T& getComponent() {
 		return m_registry->get<T>(m_eid);
 	}
 
 	template<typename T>
-	bool hasComponent() {
+	const T& getComponent() const {
+		return m_registry->get<T>(m_eid);
+	}
+
+	template<typename T>
+	bool hasComponent() const {
 		return m_registry->any_of<T>(m_eid);
 	}
 
@@ -37,7 +52,19 @@ public:
 		m_registry = nullptr;
 	}
 
-	entt::entity& getId() { return m_eid; }
+	bool isValid() const {
+		return m_registry != nullptr && m_eid != entt::null && m_registry->valid(m_eid);
+	}
+
+	entt::entity getId() const { return m_eid; }
+
+	bool operator==(const Entity& other) const {
+		return m_eid == other.getId();
+	}
+
+	bool operator!=(const Entity& other) const {
+		return !(*this == other);
+	}
 
 private:
 	entt::entity m_eid{entt::null};

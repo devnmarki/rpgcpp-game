@@ -13,7 +13,9 @@ void PhysicsSystem::tick(float dt)
 	initBodies();
 
 	updateRigidBodies();
+
 	stepWorld(dt);
+	processCollisionEvents();
 	syncTransforms();
 }
 
@@ -26,6 +28,11 @@ void PhysicsSystem::stepWorld(float dt)
 		return;
 
 	b2World_Step(activeScene->getPhysicsWorldId(), dt, 4);
+
+	b2WorldId worldId = App::getInstance()
+							.getSceneManager()
+							.getActiveScene()
+							->getPhysicsWorldId();
 }
 
 void PhysicsSystem::initBodies()
@@ -56,6 +63,8 @@ void PhysicsSystem::createBoxCollider(Entity entity, TransformComponent& transfo
 	bool isDynamic = entity.hasComponent<RigidBodyComponent>();
 	bodyDef.type = isDynamic ? b2_dynamicBody : b2_staticBody;
 
+	bodyDef.userData = reinterpret_cast<void*>(static_cast<uintptr_t>(entity.getId()));
+
 	b2BodyId bodyId = b2CreateBody(worldId, &bodyDef);
 
 	float halfWidth = PhysicsUtils::toMeters(boxCollider.size.x) * 0.5f;
@@ -66,8 +75,8 @@ void PhysicsSystem::createBoxCollider(Entity entity, TransformComponent& transfo
 	b2ShapeDef shapeDef = b2DefaultShapeDef();
 	shapeDef.density = isDynamic ? 1.0f : 0.0f;
 	shapeDef.isSensor = boxCollider.isTrigger;
-
 	shapeDef.enableContactEvents = true;
+	shapeDef.enableSensorEvents = true;
 
 	b2CreatePolygonShape(bodyId, &shapeDef, &box);
 
@@ -108,4 +117,114 @@ void PhysicsSystem::syncTransforms()
 		transform.position = PhysicsUtils::toPixels(glm::vec2(pos.x, pos.y)) - boxCollider.offset;
 		transform.rotation = angle * (180.0f / B2_PI);
 	});
+}
+
+void PhysicsSystem::processCollisionEvents()
+{
+	g_collisionEvents.clear();
+
+	Scene* scene = App::getInstance().getSceneManager().getActiveScene();
+	if (!scene)
+		return;
+
+	b2WorldId worldId = scene->getPhysicsWorldId();
+
+	// -----------------------------
+	// Regular contacts (collisions)
+	// -----------------------------
+	b2ContactEvents contactEvents = b2World_GetContactEvents(worldId);
+
+	for (int i = 0; i < contactEvents.beginCount; i++) {
+		auto* e = contactEvents.beginEvents + i;
+		Entity a = getEntityFromShape(e->shapeIdA);
+		Entity b = getEntityFromShape(e->shapeIdB);
+
+		if (!a.isValid() || !b.isValid())
+			continue;
+
+		ContactKey key{ a, b };
+		m_currentContacts.insert(key);
+
+		g_collisionEvents.push_back({ CollisionType::Enter, a, b, false });
+		g_collisionEvents.push_back({ CollisionType::Enter, b, a, false });
+	}
+
+	for (int i = 0; i < contactEvents.endCount; i++) {
+		auto* e = contactEvents.endEvents + i;
+		Entity a = getEntityFromShape(e->shapeIdA);
+		Entity b = getEntityFromShape(e->shapeIdB);
+
+		if (!a.isValid() || !b.isValid())
+			continue;
+
+		ContactKey key{ a, b };
+		m_currentContacts.erase(key);
+
+		g_collisionEvents.push_back({ CollisionType::Exit, a, b, false });
+		g_collisionEvents.push_back({ CollisionType::Exit, b, a, false });
+	}
+
+	// -----------------------------
+	// Sensors (triggers)
+	// -----------------------------
+	b2SensorEvents sensorEvents = b2World_GetSensorEvents(worldId);
+
+	for (int i = 0; i < sensorEvents.beginCount; i++) {
+		auto* e = sensorEvents.beginEvents + i;
+		Entity a = getEntityFromShape(e->sensorShapeId);
+		Entity b = getEntityFromShape(e->visitorShapeId);
+		
+		if (!a.isValid() || !b.isValid())
+			continue;
+
+		ContactKey key{ a, b };
+		m_currentTriggers.insert(key);
+
+		g_collisionEvents.push_back({ CollisionType::Enter, a, b, true });
+		g_collisionEvents.push_back({ CollisionType::Enter, b, a, true });
+	}
+
+	for (int i = 0; i < sensorEvents.endCount; i++) {
+		auto* e = sensorEvents.endEvents + i;
+		Entity a = getEntityFromShape(e->sensorShapeId);
+		Entity b = getEntityFromShape(e->visitorShapeId);
+
+		if (!a.isValid() || !b.isValid())
+			continue;
+
+		ContactKey key{ a, b };
+		m_currentTriggers.erase(key);
+
+		g_collisionEvents.push_back({ CollisionType::Exit, a, b, true });
+		g_collisionEvents.push_back({ CollisionType::Exit, b, a, true });
+	}
+
+	// -----------------------------
+	// Stay events
+	// -----------------------------
+	for (const auto& key : m_currentContacts) {
+		g_collisionEvents.push_back({ CollisionType::Stay, key.a, key.b, false });
+		g_collisionEvents.push_back({ CollisionType::Stay, key.b, key.a, false });
+	}
+	
+	for (const auto& key : m_currentTriggers) {
+		g_collisionEvents.push_back({ CollisionType::Stay, key.a, key.b, true });
+		g_collisionEvents.push_back({ CollisionType::Stay, key.b, key.a, true });
+	}
+}
+
+Entity PhysicsSystem::getEntityFromShape(b2ShapeId shapeId)
+{
+	b2BodyId bodyId = b2Shape_GetBody(shapeId);
+	void* userData = b2Body_GetUserData(bodyId);
+	if (!userData)
+		return Entity{};
+
+	entt::entity eid = static_cast<entt::entity>(
+		static_cast<uint32_t>(reinterpret_cast<uintptr_t>(userData))
+	);
+
+	entt::registry* registry = &getWorld()->getRegistry();
+
+	return Entity{ eid, &getWorld()->getRegistry() };
 }

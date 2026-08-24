@@ -14,7 +14,6 @@ set(INCLUDE_FILES
 	"src/gconstants.hpp"
 	"src/scenes/island_scene.hpp"
 	"src/scenes/default_scene.hpp"
-	"src/entity/entity_templates.hpp"
 	"src/entity/components/movement_component.hpp"
 	"src/entity/components/input_component.hpp"
 	"src/entity/components/direction_component.hpp"
@@ -22,6 +21,8 @@ set(INCLUDE_FILES
 	"src/entity/components/components.hpp"
 	"src/entity/systems/movement_system.hpp"
 	"src/entity/systems/input_system.hpp"
+	"src/entity/entities/player_entity.hpp"
+	"src/entity/entities/trigger_entity.hpp"
 )
 
 add_executable (rpg_game ${SRC_FILES} ${INCLUDE_FILES})
@@ -32,6 +33,7 @@ target_include_directories(${PROJECT_NAME}
 		"src/entity"
 		"src/entity/components"
 		"src/entity/systems"
+		"src/entity/entities"
 )
 
 

@@ -55,6 +55,18 @@ void MovementSystem::tick(float dt)
 		movement.wasMoving = movement.isMoving;
 	});
 
+	onTriggerStay<PlayerTag>([](Entity self, Entity other) {
+		spdlog::info("trigger stay!");
+	});
+
+	onTriggerExit<PlayerTag>([](Entity self, Entity other) {
+		spdlog::info("trigger exit!");
+	});
+
+	onCollisionEnter<PlayerTag>([](Entity self, Entity other) {
+		spdlog::info("collision enter!");
+	});
+
 	CameraComponent* cameraComp = nullptr;
 	if (!cameraComp) {
 		getWorld()->query<CameraComponent>([&](Entity, CameraComponent& camQuery) {

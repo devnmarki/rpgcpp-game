@@ -55,6 +55,7 @@ public:
 	void clearEntities();
 
 	std::vector<std::unique_ptr<System>>& getSystems() { return m_systems; }
+	entt::registry& getRegistry() { return m_registry; }
 
 private:
 	template<typename Component, typename View>

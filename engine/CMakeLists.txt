@@ -36,6 +36,7 @@ set(INCLUDE_FILES
 	"src/core/camera_system.hpp"
 	"src/utils/utils.hpp"
 	"src/utils/physics_utils.hpp"
+	"src/utils/collision_utils.hpp"
 	"src/graphics/texture.hpp"
 	"src/graphics/renderer.hpp"
 	"src/graphics/render_system.hpp"
@@ -56,6 +57,7 @@ set(INCLUDE_FILES
 	"src/tilemap/tilemap_entity.hpp"
 	"src/tilemap/components/tilemap_component.hpp"
 	"src/physics/physics_system.hpp"
+	"src/physics/collision_events.hpp"
 	"src/physics/components/box_collider_component.hpp"
 	"src/physics/components/rigid_body_component.hpp"
 )
