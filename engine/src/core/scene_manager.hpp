@@ -12,6 +12,7 @@
 #include "graphics/animation_system.hpp"
 #include "camera_system.hpp"
 #include "physics/physics_system.hpp"
+#include "tilemap/tilemap_system.hpp"
 #include "camera_entity.hpp"
 
 class SceneManager {

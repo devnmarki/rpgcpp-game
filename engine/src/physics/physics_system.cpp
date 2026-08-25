@@ -40,8 +40,10 @@ void PhysicsSystem::initBodies()
 	getWorld()->query<TransformComponent, BoxColliderComponent>
 		([&](Entity entity, TransformComponent& transform, BoxColliderComponent& boxCollider) 
 	{
-		if (boxCollider.hasBody())
+		if (boxCollider.hasBody() && b2Body_IsValid(boxCollider.bodyId))
 			return;
+
+		boxCollider.bodyId = b2_nullBodyId;
 
 		createBoxCollider(entity, transform, boxCollider);
 	});
@@ -88,8 +90,10 @@ void PhysicsSystem::updateRigidBodies()
 	getWorld()->query<BoxColliderComponent, RigidBodyComponent>(
 		[](Entity, BoxColliderComponent& collider, RigidBodyComponent& rigidBody) 
 	{
-		if (!collider.hasBody())
+		if (!collider.hasBody() || !b2Body_IsValid(collider.bodyId)) {
+			collider.bodyId = b2_nullBodyId;
 			return;
+		}
 
 		b2BodyId body = collider.bodyId;
 		
@@ -108,8 +112,10 @@ void PhysicsSystem::syncTransforms()
 	getWorld()->query<TransformComponent, BoxColliderComponent>(
 		[](Entity, TransformComponent& transform, BoxColliderComponent& boxCollider) 
 	{
-		if (!boxCollider.hasBody())
+		if (!boxCollider.hasBody() || !b2Body_IsValid(boxCollider.bodyId)) {
+			boxCollider.bodyId = b2_nullBodyId;
 			return;
+		}
 
 		b2Vec2 pos = b2Body_GetPosition(boxCollider.bodyId);
 		float angle = b2Rot_GetAngle(b2Body_GetRotation(boxCollider.bodyId));
@@ -215,16 +221,19 @@ void PhysicsSystem::processCollisionEvents()
 
 Entity PhysicsSystem::getEntityFromShape(b2ShapeId shapeId)
 {
+	if (!b2Shape_IsValid(shapeId))
+		return Entity{};
+
 	b2BodyId bodyId = b2Shape_GetBody(shapeId);
+	if (!b2Body_IsValid(bodyId))
+		return Entity{};
+
 	void* userData = b2Body_GetUserData(bodyId);
 	if (!userData)
 		return Entity{};
 
 	entt::entity eid = static_cast<entt::entity>(
-		static_cast<uint32_t>(reinterpret_cast<uintptr_t>(userData))
-	);
-
-	entt::registry* registry = &getWorld()->getRegistry();
+		static_cast<uint32_t>(reinterpret_cast<uintptr_t>(userData)));
 
 	return Entity{ eid, &getWorld()->getRegistry() };
 }

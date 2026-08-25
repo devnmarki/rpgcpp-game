@@ -19,6 +19,7 @@ set(SRC_FILES
 	"src/ecs/system.cpp" 
 	"src/ecs/world.cpp"
 	"src/tilemap/tilemap.cpp"
+	"src/tilemap/tilemap_system.cpp"
 	"src/physics/physics_system.cpp"
 )
 
@@ -55,6 +56,7 @@ set(INCLUDE_FILES
 	"src/ecs/components.hpp"
 	"src/tilemap/tilemap.hpp"
 	"src/tilemap/tilemap_entity.hpp"
+	"src/tilemap/tilemap_system.hpp"
 	"src/tilemap/components/tilemap_component.hpp"
 	"src/physics/physics_system.hpp"
 	"src/physics/collision_events.hpp"

@@ -40,6 +40,10 @@ void SceneManager::initSystems()
 {
 	m_pCurrentScene->getWorld().addSystem<AnimationSystem>(SystemPhase::Update);
 	m_pCurrentScene->getWorld().addSystem<CameraSystem>(SystemPhase::Update);
+	m_pCurrentScene->getWorld().addSystem<TilemapSystem>(SystemPhase::Update);
+	
+	m_pCurrentScene->initSystems();
+	
 	m_pCurrentScene->getWorld().addSystem<PhysicsSystem>(SystemPhase::Update);
 
 	m_pCurrentScene->getWorld().addSystem<RenderSystem>(SystemPhase::Render);

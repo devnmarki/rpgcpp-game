@@ -12,6 +12,7 @@ class DefaultScene : public Scene {
 public:
 	DefaultScene() = default;
 
+	void initSystems() override;
 	void onEnter() override;
 	void onUpdate() override;
 };

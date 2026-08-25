@@ -24,6 +24,7 @@ public:
 	Scene();
 	virtual ~Scene() = default;
 
+	virtual void initSystems() {}
 	virtual void onEnter() {}
 	virtual void onUpdate() {}
 	virtual void onRender() {}

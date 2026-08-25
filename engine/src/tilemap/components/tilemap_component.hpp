@@ -5,6 +5,8 @@
 
 struct TilemapComponent {
 	std::string tilemapId = "";
+	std::string colliderLayerName = "";
+	bool collidersInitialized = false;
 };
 
 #endif
