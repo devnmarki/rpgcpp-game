@@ -54,6 +54,7 @@ set(INCLUDE_FILES
 	"src/ecs/world.hpp"
 	"src/ecs/entity.hpp"
 	"src/ecs/system.hpp"
+	"src/ecs/prefab.hpp"
 	"src/ecs/components.hpp"
 	"src/tilemap/tilemap.hpp"
 	"src/tilemap/tilemap_entity.hpp"

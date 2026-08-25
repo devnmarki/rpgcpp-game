@@ -3,10 +3,10 @@
 
 #include "core/engine.hpp"
 
-#include "player_entity.hpp"
-#include "trigger_entity.hpp"
 #include "movement_system.hpp"
 #include "input_system.hpp"
+#include "player_prefab.hpp"
+#include "trigger_prefab.hpp"
 
 class DefaultScene : public Scene {
 public:

@@ -1,15 +1,17 @@
-#ifndef PLAYERENTITY_HPP
-#define PLAYERENTITY_HPP
+#ifndef PLAYERPREFAB_HPP
+#define PLAYERPREFAB_HPP
 
-#include "ecs/world.hpp"
+#include "core/engine.hpp"
 #include "components.hpp"
 #include "gconstants.hpp"
 
-class PlayerEntity {
+class PlayerPrefab : public Prefab {
 public:
-	static Entity create(World& world, const glm::vec2& position) {
+	float movementSpeed = 200.f;
+
+	Entity build(World& world, const glm::vec2& position) const override {
 		Entity entity = world.createEntity();
-		
+
 		entity.addComponent<PlayerTag>();
 		entity.addComponent<TransformComponent>(
 			TransformComponent{
@@ -19,10 +21,10 @@ public:
 		);
 		entity.addComponent<SpriteRendererComponent>();
 		entity.addComponent<BoxColliderComponent>(
-			BoxColliderComponent{ 
-				.size = glm::vec2(9.f, 16.f) * global::GAME_SCALE_V, 
+			BoxColliderComponent{
+				.size = glm::vec2(9.f, 16.f) * global::GAME_SCALE_V,
 			}
-		);
+			);
 		entity.addComponent<RigidBodyComponent>(
 			RigidBodyComponent{
 				.gravityScale = 0.0f
@@ -30,7 +32,7 @@ public:
 		);
 		entity.addComponent<MovementComponent>(
 			MovementComponent{
-				.movementSpeed = 200.0f
+				.movementSpeed = movementSpeed
 			}
 		);
 		entity.addComponent<InputComponent>();

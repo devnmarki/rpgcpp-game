@@ -21,8 +21,8 @@ set(INCLUDE_FILES
 	"src/entity/components/components.hpp"
 	"src/entity/systems/movement_system.hpp"
 	"src/entity/systems/input_system.hpp"
-	"src/entity/entities/player_entity.hpp"
-	"src/entity/entities/trigger_entity.hpp"
+	"src/entity/prefabs/player_prefab.hpp"
+	"src/entity/prefabs/trigger_prefab.hpp"
 )
 
 add_executable (rpg_game ${SRC_FILES} ${INCLUDE_FILES})
@@ -33,7 +33,7 @@ target_include_directories(${PROJECT_NAME}
 		"src/entity"
 		"src/entity/components"
 		"src/entity/systems"
-		"src/entity/entities"
+		"src/entity/prefabs"
 )
 
 

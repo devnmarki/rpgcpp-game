@@ -12,8 +12,14 @@ void DefaultScene::onEnter()
 	
 	getCamera().getComponent<CameraComponent>().damping = 100.0f;
 
-	PlayerEntity::create(getWorld(), glm::vec2(400.f, 350.f));
-	TriggerEntity::create(getWorld(), glm::vec2(500.f, 400.f));
+	PlayerPrefab playerPrefab;
+	playerPrefab.movementSpeed = 180.f;
+	playerPrefab.build(getWorld(), { 400.f, 350.f });
+
+	TriggerPrefab triggerPrefab;
+	triggerPrefab.to = "island_scene";
+	triggerPrefab.build(getWorld(), { 500.f, 400.f });
+
 	TilemapEntity::create(getWorld(), { "tilemap:test_island", global::GAME_SCALE_V, "colliders" });
 }
 

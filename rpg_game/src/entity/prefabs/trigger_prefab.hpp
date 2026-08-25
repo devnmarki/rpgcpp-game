@@ -1,15 +1,16 @@
-#ifndef TRIGGERENTITY_HPP
-#define TRIGGERENTITY_HPP
+#ifndef TRIGGERPREFAB_HPP
+#define TRIGGERPREFAB_HPP
 
-#include <glm/glm.hpp>
-
-#include "ecs/world.hpp"
-#include "gconstants.hpp"
+#include "core/engine.hpp"
 #include "components.hpp"
+#include "gconstants.hpp"
 
-class TriggerEntity {
+class TriggerPrefab : public Prefab {
 public:
-	static Entity create(World& world, const glm::vec2& position) {
+	glm::vec2 triggerSize = { 16.f, 16.f };
+	std::string to = "";
+
+	Entity build(World& world, const glm::vec2& position) const override {
 		Entity entity = world.createEntity();
 
 		entity.addComponent<TransformComponent>(
@@ -20,7 +21,7 @@ public:
 		);
 		entity.addComponent<BoxColliderComponent>(
 			BoxColliderComponent{
-				.size = glm::vec2(16.f * global::GAME_SCALE),
+				.size = triggerSize * global::GAME_SCALE,
 				.isTrigger = true
 			}
 		);

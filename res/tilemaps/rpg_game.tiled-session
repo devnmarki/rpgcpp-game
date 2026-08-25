@@ -12,11 +12,11 @@
             "scaleInEditor": 5.5
         },
         "test_island.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 4,
+            "scale": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 276.66666666666663,
-                "y": 110.33333333333331
+                "x": 250.5,
+                "y": 121.75
             }
         }
     },
