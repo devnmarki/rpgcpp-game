@@ -56,6 +56,18 @@ void App::run()
 		Input::updateState();
 
 		onUpdate();
+
+#ifndef NDEBUG
+
+		if (Input::isKeyPressed(Keys::F1)) {
+			m_debugMode = !m_debugMode;
+			spdlog::info("Debug mode: {}", m_debugMode ? "ON" : "OFF");
+		}
+
+		Debug::showColliders = m_debugMode;
+
+#endif
+
 		m_pSceneManager->updateActiveScene();
 		
 		m_pWindow->beginFrame({ 46, 144, 220 });

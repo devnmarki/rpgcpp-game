@@ -12,7 +12,10 @@ void RenderSystem::tick(float dt)
 {
 	renderTilemaps();
 	renderSprites();
+
+#ifndef NDEBUG
     drawColliders();
+#endif
 }
 
 void RenderSystem::renderSprites()
@@ -151,6 +154,9 @@ void RenderSystem::renderTilemaps()
 
 void RenderSystem::drawColliders()
 {
+    if (!Debug::showColliders)
+        return;
+
     getWorld()->query<TransformComponent, BoxColliderComponent>(
         [](Entity, TransformComponent& transform, BoxColliderComponent& boxCollider) {
       

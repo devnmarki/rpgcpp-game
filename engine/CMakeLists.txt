@@ -38,6 +38,7 @@ set(INCLUDE_FILES
 	"src/utils/utils.hpp"
 	"src/utils/physics_utils.hpp"
 	"src/utils/collision_utils.hpp"
+	"src/utils/debug.hpp"
 	"src/graphics/texture.hpp"
 	"src/graphics/renderer.hpp"
 	"src/graphics/render_system.hpp"

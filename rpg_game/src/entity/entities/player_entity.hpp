@@ -20,7 +20,7 @@ public:
 		entity.addComponent<SpriteRendererComponent>();
 		entity.addComponent<BoxColliderComponent>(
 			BoxColliderComponent{ 
-				.size = { 64.f, 64.f }, 
+				.size = glm::vec2(9.f, 16.f) * global::GAME_SCALE_V, 
 			}
 		);
 		entity.addComponent<RigidBodyComponent>(

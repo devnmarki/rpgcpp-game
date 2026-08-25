@@ -14,6 +14,7 @@
 #include "scene_manager.hpp"
 #include "input.hpp"
 #include "loader/animation_storage.hpp"
+#include "utils/debug.hpp"
 
 struct AppSpecs {
 	std::string name;
@@ -47,6 +48,7 @@ private:
 	AppSpecs m_specs;
 
 	bool m_running;
+	bool m_debugMode = false;
 
 	std::unique_ptr<Window> m_pWindow;
 	std::unique_ptr<Time> m_pTime;
