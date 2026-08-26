@@ -11,9 +11,9 @@ TilemapSystem::TilemapSystem(World* world, SystemPhase phase)
 
 void TilemapSystem::tick(float dt)
 {
-	getWorld()->query<TilemapComponent, TransformComponent>
-		([this](Entity, TilemapComponent& tilemap, TransformComponent& transform) {
-		if (tilemap.collidersInitialized || tilemap.colliderLayerName.empty())
+	getWorld()->query<TilemapComponent, TilemapColliderComponent, TransformComponent>
+		([this](Entity, TilemapComponent& tilemap, TilemapColliderComponent& collider, TransformComponent& transform) {
+		if (collider.initialized || collider.layerId.empty())
 			return;
 
 		Tilemap* tilemapAsset = App::getInstance().getAssetLoader().get<Tilemap>(tilemap.tilemapId);
@@ -26,7 +26,7 @@ void TilemapSystem::tick(float dt)
 
 			const auto& objectsLayer = layerPtr->getLayerAs<tmx::ObjectGroup>();
 
-			if (objectsLayer.getName() == tilemap.colliderLayerName) {
+			if (objectsLayer.getName() == collider.layerId) {
 				const auto& objects = objectsLayer.getObjects();
 
 				for (const auto& object : objects) {
@@ -54,6 +54,6 @@ void TilemapSystem::tick(float dt)
 			}
 		}
 
-		tilemap.collidersInitialized = true;
+		collider.initialized = true;
 	});
 }

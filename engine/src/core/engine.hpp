@@ -5,6 +5,6 @@
 
 #include "app.hpp"
 #include "prefab/prefab_factory.hpp"
-#include "tilemap/tilemap_entity.hpp"
+#include "prefab/tilemap_prefab.hpp"
 
 #endif

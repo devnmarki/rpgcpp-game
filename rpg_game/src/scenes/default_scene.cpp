@@ -18,7 +18,11 @@ void DefaultScene::onEnter()
 
 	PrefabFactory::create("player", getWorld(), { 400.f, 350.f });
 
-	TilemapEntity::create(getWorld(), { "tilemap:test_island", global::GAME_SCALE_V, "colliders" });
+	TilemapPrefab tilemapPrefab;
+	tilemapPrefab.tilemapId = "tilemap:test_island";
+	tilemapPrefab.colliderLayerId = "colliders";
+	tilemapPrefab.scale = global::GAME_SCALE_V;
+	tilemapPrefab.build(getWorld(), { 0.f, 0.f });
 }
 
 void DefaultScene::onUpdate()
