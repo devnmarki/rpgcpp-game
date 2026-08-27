@@ -15,6 +15,7 @@ struct AnimationData {
 
 class Animation {
 public:
+	Animation() = default;
 	explicit Animation(const AnimationData& data);
 
 	void play();

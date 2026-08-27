@@ -12,6 +12,10 @@ void RenderSystem::tick(float dt)
 {
 	renderTilemaps();
 	renderSprites();
+
+#ifndef NDEBUG
+    drawColliders();
+#endif
 }
 
 void RenderSystem::renderSprites()
@@ -146,6 +150,30 @@ void RenderSystem::renderTilemaps()
                 }
             }
         });
+}
+
+void RenderSystem::drawColliders()
+{
+    if (!Debug::showColliders)
+        return;
+
+    getWorld()->query<TransformComponent, BoxColliderComponent>(
+        [](Entity, TransformComponent& transform, BoxColliderComponent& boxCollider) {
+      
+        auto bodyPos = b2Body_GetPosition(boxCollider.bodyId);
+        Color colliderColor = b2Body_GetType(boxCollider.bodyId) == b2_dynamicBody ? Color{ 255, 0, 0 } : Color{ 0, 255, 0 };
+
+        App& app = App::getInstance();
+        Renderer& renderer = app.getRenderer();
+        Entity& camera = app.getSceneManager().getActiveScene()->getCamera();
+
+        renderer.drawRect(
+            PhysicsUtils::toPixels(glm::vec2(bodyPos.x, bodyPos.y)) - boxCollider.size / 2.0f, 
+            boxCollider.size, 
+            colliderColor, 
+            &camera.getComponent<CameraComponent>()
+        );
+    });
 }
 
 const tmx::Tileset* RenderSystem::findTileset(const tmx::Map& map, uint32_t gid)

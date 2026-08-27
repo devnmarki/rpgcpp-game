@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "app.hpp"
-#include "tilemap/tilemap_entity.hpp"
+#include "prefab/prefab_factory.hpp"
+#include "prefab/tilemap_prefab.hpp"
 
 #endif

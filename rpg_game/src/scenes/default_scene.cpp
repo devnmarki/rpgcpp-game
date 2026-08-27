@@ -1,12 +1,24 @@
 #include "default_scene.hpp"
 
+void DefaultScene::initSystems()
+{
+	getWorld().addSystem<MovementSystem>();
+	getWorld().addSystem<InputSystem>();
+}
+
 void DefaultScene::onEnter()
 {
 	spdlog::info("Default Scene started!");
 
-	getWorld().addSystem<MovementSystem>();
-	getWorld().addSystem<InputSystem>();
+	TilemapPrefab tilemapPrefab;
+	tilemapPrefab.tilemapId = "tilemap:test_island";
+	tilemapPrefab.scale = global::GAME_SCALE_V;
+	tilemapPrefab.colliderLayerId = "colliders";
+	tilemapPrefab.entityLayerId = "entities";
+	tilemapPrefab.build(getWorld(), { 0.f, 0.f });
+}
 
-	EntityTemplates::createPlayer(getWorld(), glm::vec2(400.0f, 350.0f));
-	TilemapEntity::create(getWorld(), "tilemap:test_island", global::GAME_SCALE_V);
+void DefaultScene::onUpdate()
+{
+
 }

@@ -3,6 +3,7 @@
 
 #include <tuple>
 #include <type_traits>
+#include <unordered_map>
 
 #include <entt/entt.hpp>
 
@@ -36,7 +37,7 @@ public:
 
 	template<typename T, typename... Args>
 	void addSystem(SystemPhase phase = SystemPhase::Update, Args&&... args) {
-		m_systems.emplace_back(std::make_unique<T>(this, phase, std::forward<Args>(args)...));
+		m_systems[phase].push_back(std::make_unique<T>(this, phase, std::forward<Args>(args)...));
 	}
 
 	void update();
@@ -54,7 +55,12 @@ public:
 
 	void clearEntities();
 
-	std::vector<std::unique_ptr<System>>& getSystems() { return m_systems; }
+	entt::registry& getRegistry() { return m_registry; }
+	
+	using SystemPtr = std::unique_ptr<System>;
+	using SystemsList = std::unordered_map<SystemPhase, std::vector<SystemPtr>>;
+	
+	SystemsList& getSystems() { return m_systems; }
 
 private:
 	template<typename Component, typename View>
@@ -70,7 +76,8 @@ private:
 private:
 	entt::registry m_registry;
 
-	std::vector<std::unique_ptr<System>> m_systems;
+	SystemsList m_systems;
+	
 };
 
 #endif

@@ -9,30 +9,30 @@ AnimationSystem::AnimationSystem(World* world, SystemPhase phase)
 
 void AnimationSystem::tick(float dt)
 {
-	getWorld()->query<AnimatorComponent>([](Entity entity, AnimatorComponent& animator) {
-		Animation* activeAnimation = App::getInstance().getAnimationStorage().get(animator.groupId, animator.currentAnimationId);
-		if (!activeAnimation)
-			return;
-
-		activeAnimation->play();
-	});
-
-	getWorld()->query<AnimatorComponent, SpriteRendererComponent>([](Entity entity, AnimatorComponent& animator, SpriteRendererComponent& sr) {
-		Animation* activeAnimation = App::getInstance().getAnimationStorage().get(animator.groupId, animator.currentAnimationId);
-		if (!activeAnimation)
-			return;
-
-		SpriteSheet* animationSheet = App::getInstance().getAssetLoader().get<SpriteSheet>(activeAnimation->getData().spriteSheetId);
-		if (!animationSheet)
-			return;
-
-		std::string currentFrameSpriteId = animationSheet->getSpriteId(activeAnimation->getData().frames[activeAnimation->getCurrentFrame()]);
-		sr.spriteId = currentFrameSpriteId;
-	});
-
 	getWorld()->query<AnimatorComponent, AnimationSwitchComponent>
 		([](Entity entity, AnimatorComponent& animator, AnimationSwitchComponent& animationSwitch) {
 		animator.currentAnimationId = animationSwitch.nextAnimation;
+
+		const auto* data = App::getInstance().getAnimationStorage().getAnimationData(animator.groupId, animator.currentAnimationId);
+		if (data) {
+			animator.activeAnimation = Animation(*data);
+		}
+
 		entity.removeComponent<AnimationSwitchComponent>();
 	});
+
+	getWorld()->query<AnimatorComponent>([](Entity entity, AnimatorComponent& animator) {
+		animator.activeAnimation.play();
+	});
+
+	getWorld()->query<AnimatorComponent, SpriteRendererComponent>([](Entity entity, AnimatorComponent& animator, SpriteRendererComponent& sr) {
+		SpriteSheet* animationSheet = App::getInstance().getAssetLoader().get<SpriteSheet>(animator.activeAnimation.getData().spriteSheetId);
+		if (!animationSheet)
+			return;
+
+		int currentFrameIndex = animator.activeAnimation.getData().frames[animator.activeAnimation.getCurrentFrame()];
+		std::string currentFrameSpriteId = animationSheet->getSpriteId(currentFrameIndex);
+
+		sr.spriteId = currentFrameSpriteId;
+	});	
 }

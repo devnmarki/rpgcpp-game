@@ -6,6 +6,7 @@
 #include <tmxlite/Map.hpp>
 #include <tmxlite/Layer.hpp>
 #include <tmxlite/TileLayer.hpp>
+#include <tmxlite/ObjectGroup.hpp>
 #include <tmxlite/Tileset.hpp>
 
 #include "loader/asset.hpp"

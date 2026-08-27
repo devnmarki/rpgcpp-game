@@ -8,21 +8,20 @@ MovementSystem::MovementSystem(World* world, SystemPhase phase)
 
 void MovementSystem::tick(float dt)
 {
-	getWorld()->query<TransformComponent, MovementComponent>([&](Entity entity, TransformComponent& transform, MovementComponent& movement) {
-		transform.position += movement.velocity * movement.movementSpeed * dt;
-	});
-
-	getWorld()->query<MovementComponent, InputComponent>([](Entity entity, MovementComponent& movement, InputComponent& input) {
+	getWorld()->query<MovementComponent, InputComponent, RigidBodyComponent>
+		([](Entity entity, MovementComponent& movement, InputComponent& input, RigidBodyComponent& rigidBody) 
+	{
 		float vx = input.moveRight - input.moveLeft;
 		float vy = input.moveDown - input.moveUp;
-		glm::vec2 inputDir = glm::vec2(vx, vy);
+		glm::vec2 inputDir = { vx, vy };
 
-		movement.isMoving = vx != 0.0f || vy != 0.0f;
+		if (glm::length(inputDir) > 0.f)
+			inputDir = glm::normalize(inputDir);
 
-		if (glm::length(inputDir) > 0.0f)
-			inputDir = glm::normalize(inputDir); 
+		rigidBody.velocity = inputDir * movement.movementSpeed;
+		movement.velocity = rigidBody.velocity;
 
-		movement.velocity = inputDir;
+		movement.isMoving = movement.velocity != glm::vec2(0.f);
 	});
 
 	getWorld()->query<DirectionComponent, MovementComponent, CardinalMovementTag>

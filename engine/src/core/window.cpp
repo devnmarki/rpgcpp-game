@@ -26,8 +26,8 @@ void Window::create()
 
 void Window::beginFrame(const Color& color = { 0, 0, 0 })
 {
-	SDL_RenderClear(m_pRenderer);
 	SDL_SetRenderDrawColor(m_pRenderer, color.r, color.g, color.b, color.a);
+	SDL_RenderClear(m_pRenderer);
 }
 
 void Window::endFrame()

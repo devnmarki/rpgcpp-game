@@ -6,6 +6,7 @@
 #include "ecs/system.hpp"
 #include "tilemap/tilemap.hpp"
 #include "core/camera_utils.hpp"
+#include "physics/physics_utils.hpp"
 
 class RenderSystem : public System {
 public:
@@ -16,6 +17,7 @@ public:
 private:
 	void renderSprites();
 	void renderTilemaps();
+	void drawColliders();
 
 	const tmx::Tileset* findTileset(const tmx::Map& map, uint32_t gid);
 	CameraComponent* queryCameraComponent();

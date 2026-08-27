@@ -9,6 +9,9 @@
 struct AnimatorComponent {
 	std::string groupId = "";
 	std::string currentAnimationId = "";
+
+	Animation activeAnimation;
+	bool initialized = false;
 };
 
 struct AnimationSwitchComponent {

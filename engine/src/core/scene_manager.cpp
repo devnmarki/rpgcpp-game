@@ -17,11 +17,9 @@ void SceneManager::switchScene(const std::string& id)
 
 		m_pCurrentScene = newScene;
 		
-		m_pCurrentScene->getWorld().addSystem<AnimationSystem>(SystemPhase::Update);
-		m_pCurrentScene->getWorld().addSystem<CameraSystem>(SystemPhase::Update);
-		m_pCurrentScene->getWorld().addSystem<RenderSystem>(SystemPhase::Render);
+		initSystems();
 
-		CameraEntity::create(m_pCurrentScene->getWorld());
+		m_pCurrentScene->m_cameraEntity = CameraEntity::create(m_pCurrentScene->getWorld());
 		m_pCurrentScene->onEnter();
 	}
 }
@@ -36,4 +34,17 @@ void SceneManager::renderActiveScene()
 {
 	m_pCurrentScene->onRender();
 	m_pCurrentScene->getWorld().render();
+}
+
+void SceneManager::initSystems()
+{
+	m_pCurrentScene->getWorld().addSystem<AnimationSystem>(SystemPhase::Update);
+	m_pCurrentScene->getWorld().addSystem<CameraSystem>(SystemPhase::Update);
+	m_pCurrentScene->getWorld().addSystem<TilemapSystem>(SystemPhase::Update);
+	
+	m_pCurrentScene->initSystems();
+	
+	m_pCurrentScene->getWorld().addSystem<PhysicsSystem>(SystemPhase::Update);
+
+	m_pCurrentScene->getWorld().addSystem<RenderSystem>(SystemPhase::Render);
 }

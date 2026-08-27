@@ -14,10 +14,12 @@
 #include "scene_manager.hpp"
 #include "input.hpp"
 #include "loader/animation_storage.hpp"
+#include "utils/debug.hpp"
 
 struct AppSpecs {
 	std::string name;
 	WindowSpecs windowSpecs;
+	float gravityScale = 10.0f;
 };
 
 class App {
@@ -29,6 +31,7 @@ public:
 
 	static App& getInstance();
 
+	const AppSpecs& getSpecs() const { return m_specs; }
 	Window& getWindow() const { return *m_pWindow; }
 	Renderer& getRenderer() { return *m_pRenderer; }
 	AssetLoader& getAssetLoader() { return *m_pAssetLoader; }
@@ -45,6 +48,7 @@ private:
 	AppSpecs m_specs;
 
 	bool m_running;
+	bool m_debugMode = false;
 
 	std::unique_ptr<Window> m_pWindow;
 	std::unique_ptr<Time> m_pTime;

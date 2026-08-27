@@ -8,6 +8,7 @@ public:
 	IslandScene() = default;
 
 	void onEnter() override;
+	void onRender() override;
 };
 
 #endif
