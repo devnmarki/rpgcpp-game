@@ -6,8 +6,8 @@
 #include <box2d/box2d.h>
 
 #include "ecs/system.hpp"
-#include "utils/physics_utils.hpp"
-#include "utils/collision_utils.hpp"
+#include "physics_utils.hpp"
+#include "collision_utils.hpp"
 #include "ecs/entity.hpp"
 #include "collision_events.hpp"
 

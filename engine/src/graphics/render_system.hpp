@@ -6,7 +6,7 @@
 #include "ecs/system.hpp"
 #include "tilemap/tilemap.hpp"
 #include "core/camera_utils.hpp"
-#include "utils/physics_utils.hpp"
+#include "physics/physics_utils.hpp"
 
 class RenderSystem : public System {
 public:
