@@ -8,6 +8,7 @@
 #include "tilemap/components/tilemap_component.hpp"
 #include "tilemap/components/tilemap_collider_component.hpp"
 #include "tilemap/components/tilemap_spawner_component.hpp"
+#include "tilemap/components/tilemap_object_component.hpp"
 #include "physics/components/box_collider_component.hpp"
 #include "physics/components/rigid_body_component.hpp"
 

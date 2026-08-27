@@ -61,6 +61,7 @@ set(INCLUDE_FILES
 	"src/tilemap/components/tilemap_component.hpp"
 	"src/tilemap/components/tilemap_collider_component.hpp"
 	"src/tilemap/components/tilemap_spawner_component.hpp"
+	"src/tilemap/components/tilemap_object_component.hpp"
 	"src/physics/physics_system.hpp"
 	"src/physics/collision_events.hpp"
 	"src/physics/physics_utils.hpp"

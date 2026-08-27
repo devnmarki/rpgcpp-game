@@ -65,6 +65,11 @@ void TilemapSystem::loadEntities()
 			center += transform.position;
 
 			Entity entity = PrefabFactory::create(object.getName(), *getWorld(), center);
+			if (!entity.hasComponent<TilemapObjectComponent>()) {
+				entity.addComponent<TilemapObjectComponent>(TilemapObjectComponent{
+					.data = object
+				});
+			}
 		}
 
 		spawner.initialized = true;
