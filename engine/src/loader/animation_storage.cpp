@@ -21,17 +21,30 @@ void AnimationStorage::addGroup(const std::string& groupId, AnimationGroup* grou
         }
     }
 }
-Animation* AnimationStorage::get(const std::string& groupId, const std::string& id)
+Animation AnimationStorage::get(const std::string& groupId, const std::string& id)
 {
 	std::string fullId = getFullAnimationId(groupId, id);
 
 	auto it = m_animations.find(fullId);
 	if (it == m_animations.end()) {
 	    spdlog::error("There is no animation '{}'!", fullId);
-	    return nullptr;
+        return Animation{};
 	}
 
-	return it->second.get();
+	return *it->second;
+}
+
+const AnimationData* AnimationStorage::getAnimationData(const std::string& groupId, const std::string& id)
+{
+    std::string fullId = getFullAnimationId(groupId, id);
+
+    auto it = m_animations.find(fullId);
+    if (it == m_animations.end()) {
+        spdlog::error("There is no animation '{}'!", fullId);
+        return nullptr;
+    }
+
+    return &it->second->getData();
 }
 
 std::string AnimationStorage::getFullAnimationId(const std::string& groupId, const std::string& id)

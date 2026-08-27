@@ -14,7 +14,8 @@ public:
 	AnimationStorage() = default;
 
 	void addGroup(const std::string& groupId, AnimationGroup* group);
-	Animation* get(const std::string& groupId, const std::string& id);
+	Animation get(const std::string& groupId, const std::string& id);
+	const AnimationData* getAnimationData(const std::string& groupId, const std::string& id);
 
 private:
 	std::string getFullAnimationId(const std::string& groupId, const std::string& id);
