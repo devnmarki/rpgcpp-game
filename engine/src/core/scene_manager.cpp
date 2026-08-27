@@ -24,6 +24,20 @@ void SceneManager::switchScene(const std::string& id)
 	}
 }
 
+void SceneManager::requestSceneSwitch(const std::string& id)
+{
+	m_pendingSceneId = id;
+}
+
+void SceneManager::procesPendingSceneSwitch()
+{
+	if (!m_pendingSceneId.empty()) {
+		std::string nextScene = m_pendingSceneId;
+		m_pendingSceneId.clear();
+		switchScene(nextScene);
+	}
+}
+
 void SceneManager::updateActiveScene()
 {
 	m_pCurrentScene->onUpdate();

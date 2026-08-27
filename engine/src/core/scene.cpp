@@ -9,6 +9,10 @@ Scene::Scene()
 
 void Scene::resetWorld(AccessKey)
 {
+	if (m_pWorld) {
+		m_pWorld->clearEntities();
+	}
+
 	if (B2_IS_NON_NULL(m_physicsWorldId)) {
 		b2DestroyWorld(m_physicsWorldId);
 		m_physicsWorldId = b2_nullWorldId;

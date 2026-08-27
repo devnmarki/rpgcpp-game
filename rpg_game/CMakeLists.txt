@@ -7,6 +7,7 @@ set(SRC_FILES
 	"src/scenes/default_scene.cpp"
 	"src/entity/systems/movement_system.cpp"
 	"src/entity/systems/input_system.cpp"
+	"src/entity/systems/trigger_system.cpp"
 )
 
 set(INCLUDE_FILES 
@@ -17,10 +18,12 @@ set(INCLUDE_FILES
 	"src/entity/components/movement_component.hpp"
 	"src/entity/components/input_component.hpp"
 	"src/entity/components/direction_component.hpp"
+	"src/entity/components/trigger_component.hpp"
 	"src/entity/components/tags.hpp"
 	"src/entity/components/components.hpp"
 	"src/entity/systems/movement_system.hpp"
 	"src/entity/systems/input_system.hpp"
+	"src/entity/systems/trigger_system.hpp"
 	"src/entity/prefabs/player_prefab.hpp"
 	"src/entity/prefabs/trigger_prefab.hpp"
 )

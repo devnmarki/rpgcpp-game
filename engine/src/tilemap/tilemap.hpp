@@ -10,6 +10,7 @@
 #include <tmxlite/Tileset.hpp>
 
 #include "loader/asset.hpp"
+#include "tilemap_utils.hpp"
 
 struct TilemapData {
 	std::string id = "";

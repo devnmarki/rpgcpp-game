@@ -5,6 +5,7 @@
 
 #include "movement_system.hpp"
 #include "input_system.hpp"
+#include "trigger_system.hpp"
 #include "player_prefab.hpp"
 #include "trigger_prefab.hpp"
 

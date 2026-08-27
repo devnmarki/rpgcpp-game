@@ -3,4 +3,5 @@
 #include "movement_component.hpp"
 #include "input_component.hpp"
 #include "direction_component.hpp"
+#include "trigger_component.hpp"
 #include "tags.hpp"

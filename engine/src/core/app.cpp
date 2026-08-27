@@ -75,6 +75,8 @@ void App::run()
 		m_pSceneManager->renderActiveScene();
 		m_pWindow->endFrame();
 
+		m_pSceneManager->procesPendingSceneSwitch();
+
 		m_pTime->updateFps();
 	}
 }

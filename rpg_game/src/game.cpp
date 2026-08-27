@@ -1,7 +1,7 @@
 #include "game.hpp"
 
 Game::Game()
-	: App{ AppSpecs{ "RPG Game | v0.1.0", WindowSpecs{ "", 1280, 720 } } }
+	: App{ AppSpecs{ "RPG Game | v0.2.0", WindowSpecs{ "", 1280, 720 } } }
 {
 	getAssetLoader().loadGroup<Texture>("res/data/textures.json");
 	getAssetLoader().loadGroup<Sprite>("res/data/sprites.json");

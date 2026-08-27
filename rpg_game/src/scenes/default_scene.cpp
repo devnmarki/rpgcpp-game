@@ -4,6 +4,7 @@ void DefaultScene::initSystems()
 {
 	getWorld().addSystem<MovementSystem>();
 	getWorld().addSystem<InputSystem>();
+	getWorld().addSystem<TriggerSystem>();
 }
 
 void DefaultScene::onEnter()

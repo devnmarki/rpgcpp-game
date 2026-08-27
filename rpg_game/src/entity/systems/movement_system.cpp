@@ -11,8 +11,8 @@ void MovementSystem::tick(float dt)
 	getWorld()->query<MovementComponent, InputComponent, RigidBodyComponent>
 		([](Entity entity, MovementComponent& movement, InputComponent& input, RigidBodyComponent& rigidBody) 
 	{
-		float vx = input.moveRight - input.moveLeft;
-		float vy = input.moveDown - input.moveUp;
+		float vx = static_cast<float>(input.moveRight - input.moveLeft);
+		float vy = static_cast<float>(input.moveDown - input.moveUp);
 		glm::vec2 inputDir = { vx, vy };
 
 		if (glm::length(inputDir) > 0.f)
@@ -25,7 +25,8 @@ void MovementSystem::tick(float dt)
 	});
 
 	getWorld()->query<DirectionComponent, MovementComponent, CardinalMovementTag>
-		([](Entity entity, DirectionComponent& direction, MovementComponent& movement) {
+		([](Entity entity, DirectionComponent& direction, MovementComponent& movement) 
+	{
 		Directions prevDirection = direction.direction;
 
 		if (movement.velocity.x > 0.0f) {

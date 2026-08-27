@@ -58,6 +58,7 @@ set(INCLUDE_FILES
 	"src/ecs/components.hpp"
 	"src/tilemap/tilemap.hpp"
 	"src/tilemap/tilemap_system.hpp"
+	"src/tilemap/tilemap_utils.hpp"
 	"src/tilemap/components/tilemap_component.hpp"
 	"src/tilemap/components/tilemap_collider_component.hpp"
 	"src/tilemap/components/tilemap_spawner_component.hpp"

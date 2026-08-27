@@ -32,6 +32,8 @@ public:
 	}
 
 	void switchScene(const std::string& id);
+	void requestSceneSwitch(const std::string& id);
+	void procesPendingSceneSwitch();
 
 	void updateActiveScene();
 	void renderActiveScene();
@@ -44,6 +46,7 @@ private:
 private:
 	std::unordered_map<std::string, std::unique_ptr<Scene>> m_scenes = {};
 	Scene* m_pCurrentScene = nullptr;
+	std::string m_pendingSceneId;
 };
 
 #endif

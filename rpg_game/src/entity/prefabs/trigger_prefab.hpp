@@ -25,6 +25,11 @@ public:
 				.isTrigger = true
 			}
 		);
+		entity.addComponent<TriggerComponent>(
+			TriggerComponent{
+				.to = to
+			}
+		);
 
 		return entity;
 	}
